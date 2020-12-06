@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BankAccountAPI.Services;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,36 +12,53 @@ namespace BankAccountAPI.Controllers
     public class ContasController : ControllerBase
     {
 
-        // GET: api/conta
+        private IContas contasDb;
+
+        public ContasController(IContas _contasDb)
+        {
+            contasDb = _contasDb;
+        }
+
+        // GET: api/contas
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Conta> Get()
         {
-            return new string[] { "sua mãe", "de quatro" };
+            return contasDb.GetContas();
         }
 
-        // GET api/<ContasController>/5
+        // GET api/contas/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Conta Get(int id)
         {
-            return "value";
+            return contasDb.GetConta(id);
         }
 
-        // POST api/<ContasController>
+        // POST api/contas
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Conta conta)
         {
+            contasDb.CriarConta(conta);
         }
 
-        // PUT api/<ContasController>/5
+        // PUT api/contas/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Conta conta)
         {
+            contasDb.AtualizarConta(conta);
         }
 
-        // DELETE api/<ContasController>/5
+        // DELETE api/contas/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            contasDb.DeletarConta(id);
         }
+
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] Conta conta, float saldo)
+        {
+
+        }
+
     }
 }

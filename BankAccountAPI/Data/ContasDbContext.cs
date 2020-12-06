@@ -11,6 +11,6 @@ namespace BankAccountAPI.Data
 
         public ContasDbContext(DbContextOptions<ContasDbContext> options) : base(options) { }
 
-        public DbSet<Conta> Products { get; set; }
+        public DbSet<Conta> Contas { get; set; }
     }
 }
