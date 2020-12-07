@@ -8,25 +8,32 @@ namespace BankAccountAPI.Models
     public class Extrato
     {
 
-        public Extrato(string resultado, float valorPagoTotal, float taxas, float valorFinal, Conta contaOrigem, Conta contaDestino )
-        { 
-            _dataMovimentacao = DateTime.Now;
-            _resultado = resultado;
-            _valorPagoTotal = valorPagoTotal;
-            _taxas = taxas;
-            _valorFinal = valorFinal;
-            _contaDestino = contaOrigem;
-            _contaDestino = contaDestino;
-        }
+        public int Id                       { get; set; }
+        public DateTime DataMovimentacao    { get; set; }
+        public string TipoMovimentacao      { get; set; }
+        public string Resultado             { get; set; }
+        public float ValorPagoTotal         { get; set; }
+        public float Taxas                  { get; set; }
+        public float ValorFinal             { get; set; }
+        public float SaldoAnterior          { get; set; }
+        public float SaldoAtual             { get; set; }
+        public int ContaId                  { get; set; }
+        public int? ContaDestinoId          { get; set; }
 
-        public int Id                      { get; set; }
-        public DateTime _dataMovimentacao   { get; set; }
-        private string _resultado           { get; set; }
-        private float _valorPagoTotal       { get; set; }
-        private float _taxas                { get; set; }
-        private float _valorFinal           { get; set; }
-        private Conta _contaOrigem          { get; set; }
-        private Conta _contaDestino         { get; set; }
-        
+        public void SetExtrato(string tipoMovimentacao, string resultado, float valorPagoTotal,
+                               float taxas, float valorFinal, float saldoAnterior,
+                               float saldoAtual, int contaId, int? contaDestinoId)
+        {
+            DataMovimentacao = DateTime.Now;
+            TipoMovimentacao = tipoMovimentacao;
+            Resultado = resultado;
+            ValorPagoTotal = valorPagoTotal;
+            Taxas = taxas;
+            ValorFinal = valorFinal;
+            SaldoAnterior = saldoAnterior;
+            SaldoAtual = saldoAtual;
+            ContaId = contaId;
+            ContaDestinoId = contaDestinoId;
+        }
     }
 }

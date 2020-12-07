@@ -8,41 +8,41 @@ namespace BankAccountAPI.Services
 {
     public class ContasRepository : IContas
     {
-        ContasDbContext contasDbContext;
+        BancoDbContext bancoDbContext;
 
-        public ContasRepository(ContasDbContext _contasDbContext)
+        public ContasRepository(BancoDbContext _bancoDbContext)
         {
-            contasDbContext = _contasDbContext;
+            bancoDbContext = _bancoDbContext;
         }
 
         public IEnumerable<Conta> GetContas()
         {
-            return contasDbContext.Contas;
+            return bancoDbContext.Contas;
         }
 
         public Conta GetConta(int id)
         {
-            var conta = contasDbContext.Contas.Find(id);
+            var conta = bancoDbContext.Contas.Find(id);
             return conta;
         }
 
         public void CriarConta(Conta conta)
         {
-            contasDbContext.Contas.Add(conta);
-            contasDbContext.SaveChanges(true);
+            bancoDbContext.Contas.Add(conta);
+            bancoDbContext.SaveChanges(true);
         }
 
         public void AtualizarConta(Conta conta)
         {
-            contasDbContext.Contas.Update(conta);
-            contasDbContext.SaveChanges(true);
+            bancoDbContext.Contas.Update(conta);
+            bancoDbContext.SaveChanges(true);
         }
 
         public void DeletarConta(int id)
         {
-            var product = contasDbContext.Contas.Find(id);
-            contasDbContext.Contas.Remove(product);
-            contasDbContext.SaveChanges(true);
+            var product = bancoDbContext.Contas.Find(id);
+            bancoDbContext.Contas.Remove(product);
+            bancoDbContext.SaveChanges(true);
         }
 
     }

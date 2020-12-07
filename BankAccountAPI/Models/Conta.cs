@@ -9,7 +9,7 @@ namespace BankAccountAPI
 {
     public class Conta
     {
-        private readonly float _taxaPorcentagemDeposito = 1/100;
+        private readonly float _taxaPorcentagemDeposito = 1/100F;
         private readonly float _taxaValorSaque = 4.00F;
         private readonly float _taxaValorTransferencia = 1.00F;
 
@@ -29,24 +29,26 @@ namespace BankAccountAPI
         public string Email { get; set; }
 
         public float Saldo { get; set; }
-    
-    
-        public (bool aprovado, string resultado, float valorTaxa) Saque(float quantidade)
+
+
+        public (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa) Saque(float quantidade)
         {
+            var saldoAnterior = Saldo;
             if (Saldo >= quantidade)
             {
                 Saldo -= quantidade;
-                return (aprovado: true, resultado: "SUCESSO", valorTaxa: _taxaValorSaque);
+                return (saldoAnterior, Saldo, resultado: "SUCESSO", valorTaxa: _taxaValorSaque);
             }
-            return (aprovado: false, resultado: "SALDO INSUFICIENTE", valorTaxa: _taxaValorSaque);
+            return (Saldo, Saldo, resultado: "SALDO INSUFICIENTE", valorTaxa: _taxaValorSaque);
         }
 
-        public (bool aprovado, string resultado, float valorTaxa) Deposito(float quantidade)
+        public (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa) Deposito(float quantidade)
         {
+            var saldoAnterior = Saldo;
             var taxa = quantidade * _taxaPorcentagemDeposito;
             var valorTaxado = quantidade - taxa;
-            Saldo += quantidade;
-            return (aprovado: true, resultado: "SUCESSO", valorTaxa: taxa)
+            Saldo += valorTaxado;
+            return (saldoAnterior, Saldo, resultado: "SUCESSO", valorTaxa: taxa);
         }
 
     }

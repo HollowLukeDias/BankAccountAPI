@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace BankAccountAPI.Data
 {
-    public class ExtratoDbContext : DbContext
+    public class BancoDbContext : DbContext
     {
-        public ExtratoDbContext(DbContextOptions<ContasDbContext> options) : base(options) { }
+        public BancoDbContext(DbContextOptions<BancoDbContext> options) : base(options) { }
 
         public DbSet<Extrato> Extratos { get; set; }
+        public DbSet<Conta> Contas { get; set; }
     }
 }

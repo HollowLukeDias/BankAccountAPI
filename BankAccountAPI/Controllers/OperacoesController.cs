@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BankAccountAPI.Controllers
 {
     [Route("api/operacao")]
@@ -14,17 +12,23 @@ namespace BankAccountAPI.Controllers
     public class OperacoesController : ControllerBase
     {
 
-        private IContas _contasDb;
+        private IBanco _bancoDb;
 
-        public OperacoesController(IContas contasDb)
+        public OperacoesController(IBanco bancoDb)
         {
-            _contasDb = contasDb;
+            _bancoDb = bancoDb;
         }
 
         [HttpPut("deposito/{id}")]
-        public void Put(int id, [FromBody]  Conta conta, float quantidade)
+        public void Deposito(int id, float quantidade)
         {
+            _bancoDb.Depositar(id, quantidade);
+        }
 
+        [HttpPut("saque/{id}")]
+        public void Saque(int id, float quantidade)
+        {
+            _bancoDb.Saque(id, quantidade);
         }
     }
 }

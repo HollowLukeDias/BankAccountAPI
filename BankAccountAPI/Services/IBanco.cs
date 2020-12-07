@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace BankAccountAPI.Services
 {
-    interface IBanco
+    public interface IBanco
     {
-        void Depositar(Conta conta, float quantidade);
-        void Saque(Conta conta, float quantidade);
+        void Depositar(int id, float quantidade);
+        void Saque(int id, float quantidade);
         void Transferencia(Conta origem, Conta destino, float quantidade);
     }
 }
