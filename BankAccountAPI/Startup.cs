@@ -31,11 +31,12 @@ namespace BankAccountAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ContasDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=ContasDB"));
+            services.AddDbContext<ExtratoDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=ExtratoDB"));
             services.AddScoped<IContas, ContasRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ContasDbContext contasDbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ContasDbContext contasDbContext, ExtratoDbContext extratoDbContext)
         {
             if (env.IsDevelopment())
             {
@@ -50,6 +51,7 @@ namespace BankAccountAPI
             app.UseHttpsRedirection();
             app.UseMvc();
             contasDbContext.Database.EnsureCreated();
+            extratoDbContext.Database.EnsureCreated();
         }
     }
 }

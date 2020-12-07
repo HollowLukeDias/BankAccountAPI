@@ -44,5 +44,6 @@ namespace BankAccountAPI.Services
             contasDbContext.Contas.Remove(product);
             contasDbContext.SaveChanges(true);
         }
+
     }
 }

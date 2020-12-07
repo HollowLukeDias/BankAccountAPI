@@ -12,52 +12,46 @@ namespace BankAccountAPI.Controllers
     public class ContasController : ControllerBase
     {
 
-        private IContas contasDb;
+        private IContas _contasDb;
 
-        public ContasController(IContas _contasDb)
+        public ContasController(IContas contasDb)
         {
-            contasDb = _contasDb;
+            _contasDb = contasDb;
         }
 
         // GET: api/contas
         [HttpGet]
         public IEnumerable<Conta> Get()
         {
-            return contasDb.GetContas();
+            return _contasDb.GetContas();
         }
 
         // GET api/contas/5
         [HttpGet("{id}")]
         public Conta Get(int id)
         {
-            return contasDb.GetConta(id);
+            return _contasDb.GetConta(id);
         }
 
         // POST api/contas
         [HttpPost]
         public void Post([FromBody] Conta conta)
         {
-            contasDb.CriarConta(conta);
+            _contasDb.CriarConta(conta);
         }
 
         // PUT api/contas/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Conta conta)
         {
-            contasDb.AtualizarConta(conta);
+            _contasDb.AtualizarConta(conta);
         }
 
         // DELETE api/contas/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            contasDb.DeletarConta(id);
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Conta conta, float saldo)
-        {
-
+            _contasDb.DeletarConta(id);
         }
 
     }
