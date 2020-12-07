@@ -22,13 +22,19 @@ namespace BankAccountAPI.Controllers
         [HttpPut("deposito/{id}")]
         public void Deposito(int id, float quantidade)
         {
-            _bancoDb.Depositar(id, quantidade);
+            _bancoDb.Deposito(id, quantidade);
         }
 
         [HttpPut("saque/{id}")]
         public void Saque(int id, float quantidade)
         {
             _bancoDb.Saque(id, quantidade);
+        }
+
+        [HttpPut("transferencia/{id}")]
+        public void Transferencia(int id, float quantidade, int idDestino)
+        {
+            _bancoDb.Transferencia(id, idDestino, quantidade);
         }
     }
 }

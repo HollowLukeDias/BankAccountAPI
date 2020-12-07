@@ -1,4 +1,5 @@
 ﻿using BankAccountAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,37 +22,67 @@ namespace BankAccountAPI.Controllers
 
         // GET: api/contas
         [HttpGet]
-        public IEnumerable<Conta> Get()
+        public IActionResult Get()
         {
-            return _contasDb.GetContas();
+            var contas = _contasDb.GetContas();
+            if (contas == null) return BadRequest("Não existem contas cadastradas");
+            return Ok(contas);
         }
 
         // GET api/contas/5
         [HttpGet("{id}")]
-        public Conta Get(int id)
+        public IActionResult Get(int id)
         {
-            return _contasDb.GetConta(id);
+            var conta = _contasDb.GetConta(id);
+            if (conta == null) return BadRequest($"Não existe conta com esse ID: {id}");
+            return Ok(conta);
+
         }
 
         // POST api/contas
         [HttpPost]
-        public void Post([FromBody] Conta conta)
+        public IActionResult Post([FromBody] Conta conta)
         {
-            _contasDb.CriarConta(conta);
+
+            if (ModelState.IsValid)
+            {
+                _contasDb.CriarConta(conta);
+                return StatusCode(StatusCodes.Status201Created);
+            }
+            return BadRequest(ModelState);
         }
 
         // PUT api/contas/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Conta conta)
+        public IActionResult Put(int id, [FromBody] Conta conta)
         {
-            _contasDb.AtualizarConta(conta);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (id != conta.Id) return BadRequest($"O ID enviado: {id} é diferente do ID da conta: {conta.Id}");
+
+            try
+            {
+                _contasDb.AtualizarConta(conta);
+                return Ok($"Conta de ID: {id} atualizada");
+            }
+            catch (Exception)
+            {
+                return NotFound($"Não existe conta com o ID: {id}");
+            }
         }
 
         // DELETE api/contas/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _contasDb.DeletarConta(id);
+            try
+            {
+                _contasDb.DeletarConta(id);
+                return Ok($"Conta com ID: {id} deletada");
+            }
+            catch (Exception)
+            {
+                return NotFound($"Não foi encontrada uma conta com o ID: {id}");
+            }
         }
 
     }

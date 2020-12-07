@@ -12,23 +12,27 @@ namespace BankAccountAPI.Controllers
     [ApiController]
     public class ExtratosController : ControllerBase
     {
-        private IExtratos _extratosDb;
+        private IExtratos _extratos;
 
         public ExtratosController(IExtratos extratos)
         {
-            _extratosDb = extratos;
+            _extratos = extratos;
         }
 
         [HttpGet]
-        public IEnumerable<Extrato> Get()
+        public IActionResult Get()
         {
-            return _extratosDb.GetExtratos();
+            var extratos = _extratos.GetExtratos();
+            if (extratos == null) return BadRequest("Não existem extratos");
+            return Ok(extratos);
         }
 
         [HttpGet("{id}")]
-        public Extrato Get(int id)
+        public IActionResult Get(int id)
         {
-            return _extratosDb.GetExtrato(id);
+            var extrato = _extratos.GetExtrato(id);
+            if (extrato == null) return NotFound($"Não foi encontrado Extrato com ID: {id}");
+            return Ok(extrato);
         }
     }
 }
