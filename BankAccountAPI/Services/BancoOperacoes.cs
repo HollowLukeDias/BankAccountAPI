@@ -17,9 +17,13 @@ namespace BankAccountAPI.Services
             bancoDbContext = _bancoDbContext;
         }
 
-        public void Deposito(int id, float quantidade)
+        /// <summary>
+        /// Deposita a quantidade que vem do endpoint, e usa as informações do depósito para gerar o extrato
+        /// </summary>
+        /// <param name="conta"></param>
+        /// <param name="quantidade"></param>
+        public void DepositoGeraExtrato(Conta conta, float quantidade)
         {
-            var conta = bancoDbContext.Contas.Find(id);
             var informacoesDeDeposito = conta.Deposito(quantidade);
 
             var saldoAnterior   = informacoesDeDeposito.saldoAnterior;
@@ -29,15 +33,19 @@ namespace BankAccountAPI.Services
             var valorTaxado     = quantidade - taxa;
 
             var extrato = new Extrato();
-            extrato.SetExtrato("DEPOSITO", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, id, null);
+            extrato.SetExtrato("DEPOSITO", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, conta.Id, null);
 
             bancoDbContext.Extratos.Add(extrato);
             bancoDbContext.SaveChanges(true);
         }
 
-        public void Saque(int id, float quantidade)
+        /// <summary>
+        /// Faz o saque de uma quantidade que vem do endpoint, e usa as informações do depósito para gerar o extrato 
+        /// </summary>
+        /// <param name="conta"></param>
+        /// <param name="quantidade"></param>
+        public void SaqueGeraExtrato(Conta conta, float quantidade)
         {
-            var conta = bancoDbContext.Contas.Find(id);
             var informacoesDeSaque = conta.Saque(quantidade);
 
             var resultado       = informacoesDeSaque.resultado;
@@ -47,16 +55,21 @@ namespace BankAccountAPI.Services
             var valorTaxado     = quantidade - taxa;
 
             var extrato = new Extrato();
-            extrato.SetExtrato("SAQUE", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, id, null);
+            extrato.SetExtrato("SAQUE", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, conta.Id, null);
             
             bancoDbContext.Extratos.Add(extrato);
             bancoDbContext.SaveChanges(true);
         }
 
-        public void Transferencia(int id, int idDestino, float quantidade)
+        /// <summary>
+        /// Faz uma transferencia de um valor que vem do endpoint entre duas contas, se funcionar, gera dois extratos, um pra cada conta
+        /// Se não funcionar gera o extrato apenas para a conta que tentou fazer a transferencia
+        /// </summary>
+        /// <param name="conta"></param>
+        /// <param name="contaDestino"></param>
+        /// <param name="quantidade"></param>
+        public void TransferenciaGeraExtrato(Conta conta, Conta contaDestino, float quantidade)
         {
-            var conta = bancoDbContext.Contas.Find(id);
-            var contaDestino = bancoDbContext.Contas.Find(idDestino);
             var informacoesDeTransferencia = conta.Transferencia(quantidade, contaDestino);
 
             var resultado = informacoesDeTransferencia.resultado;
@@ -70,10 +83,10 @@ namespace BankAccountAPI.Services
             if (resultado == "SUCESSO")
             {
                 var extratoContaOrigem = new Extrato();
-                extratoContaOrigem.SetExtrato("TRANSFERENCIA - ENVIO", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, id, idDestino);
+                extratoContaOrigem.SetExtrato("TRANSFERENCIA - ENVIO", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, conta.Id, contaDestino.Id );
 
                 var extratoContaDestino = new Extrato();
-                extratoContaDestino.SetExtrato("TRANFERENCIA - RECEBIMENTO", resultado, quantidade, taxa, valorTaxado, saldoAnteriorDestino, saldoAtualDestino, id, idDestino);
+                extratoContaDestino.SetExtrato("TRANFERENCIA - RECEBIMENTO", resultado, quantidade, taxa, valorTaxado, saldoAnteriorDestino, saldoAtualDestino, conta.Id, contaDestino.Id);
 
                 bancoDbContext.Extratos.Add(extratoContaOrigem);
                 bancoDbContext.Extratos.Add(extratoContaDestino);
@@ -81,7 +94,7 @@ namespace BankAccountAPI.Services
             else
             {
                 var extratoContaOrigem = new Extrato();
-                extratoContaOrigem.SetExtrato("TRANSFERENCIA - ENVIO", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, id, idDestino);
+                extratoContaOrigem.SetExtrato("TRANSFERENCIA - ENVIO", resultado, quantidade, taxa, valorTaxado, saldoAnterior, saldoAtual, conta.Id, contaDestino.Id);
                 bancoDbContext.Extratos.Add(extratoContaOrigem);
             }
 

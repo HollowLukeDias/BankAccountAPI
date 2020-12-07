@@ -7,8 +7,8 @@ namespace BankAccountAPI.Services
 {
     public interface IBanco
     {
-        void Deposito(int id, float quantidade);
-        void Saque(int id, float quantidade);
-        void Transferencia(int id, int idDestino, float quantidade);
+        void DepositoGeraExtrato(Conta conta, float quantidade);
+        void SaqueGeraExtrato(Conta conta, float quantidade);
+        void TransferenciaGeraExtrato(Conta conta, Conta contaDestino, float quantidade);
     }
 }

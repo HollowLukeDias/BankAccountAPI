@@ -30,7 +30,11 @@ namespace BankAccountAPI
 
         public float Saldo { get; set; }
 
-
+        /// <summary>
+        /// Remove uma quantidade de dinheiro da conta
+        /// </summary>
+        /// <param name="quantidade"></param>
+        /// <returns></returns>
         public (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa) Saque(float quantidade)
         {
             var saldoAnterior = Saldo;
@@ -42,6 +46,11 @@ namespace BankAccountAPI
             return (Saldo, Saldo, resultado: "SALDO INSUFICIENTE", valorTaxa: _taxaValorSaque);
         }
 
+        /// <summary>
+        /// Deposita uma quantidade de dinheiro na conta
+        /// </summary>
+        /// <param name="quantidade"></param>
+        /// <returns></returns>
         public (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa) Deposito(float quantidade)
         {
             var saldoAnterior = Saldo;
@@ -51,6 +60,12 @@ namespace BankAccountAPI
             return (saldoAnterior, Saldo, resultado: "SUCESSO", valorTaxa: taxa);
         }
 
+        /// <summary>
+        /// Faz uma transferencia entre contas
+        /// </summary>
+        /// <param name="quantidade"></param>
+        /// <param name="contaDestino"></param>
+        /// <returns></returns>
         public (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa, float saldoAnteriorDestino, float saldoAtualDestino)
             Transferencia(float quantidade, Conta contaDestino)
         {
