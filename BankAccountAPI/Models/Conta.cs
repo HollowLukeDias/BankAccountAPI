@@ -41,9 +41,9 @@ namespace BankAccountAPI
             if (Saldo >= quantidade)
             {
                 Saldo -= quantidade;
-                return (saldoAnterior, Saldo, resultado: "SUCESSO", valorTaxa: _taxaValorSaque);
+                return (saldoAnterior, Saldo, resultado: "SUCESSO", _taxaValorSaque);
             }
-            return (Saldo, Saldo, resultado: "SALDO INSUFICIENTE", valorTaxa: _taxaValorSaque);
+            return (Saldo, Saldo, resultado: "SALDO INSUFICIENTE", _taxaValorSaque);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace BankAccountAPI
             var taxa = quantidade * _taxaPorcentagemDeposito;
             var valorTaxado = quantidade - taxa;
             Saldo += valorTaxado;
-            return (saldoAnterior, Saldo, resultado: "SUCESSO", valorTaxa: taxa);
+            return (saldoAnterior, Saldo, resultado: "SUCESSO", taxa);
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace BankAccountAPI
             {
                 Saldo -= quantidade;
                 contaDestino.Saldo += quantidade - _taxaValorTransferencia;
-                return (saldoAnterior, Saldo, resultado: "SUCESSO", valorTaxa: _taxaValorTransferencia, saldoAnteriorDestino, contaDestino.Saldo);
+                return (saldoAnterior, Saldo, resultado: "SUCESSO",  _taxaValorTransferencia, saldoAnteriorDestino, contaDestino.Saldo);
             }
-            return (Saldo, Saldo, resultado: "SALDO INSUFICIENTE", valorTaxa: _taxaValorTransferencia, saldoAnteriorDestino, saldoAnteriorDestino);
+            return (Saldo, Saldo, resultado: "SALDO INSUFICIENTE", _taxaValorTransferencia, saldoAnteriorDestino, saldoAnteriorDestino);
         }
 
     }
