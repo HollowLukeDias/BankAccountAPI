@@ -16,27 +16,20 @@ namespace BankAccountAPI.Helpers
             bancoBdContext = _bancoDbContext;
         }
 
-        public IEnumerable<Transacao> GetTransacoes(int contaId, DateTime dataInicial, DateTime dataFinal)
+        public IEnumerable<Transacao> GetTransacoes(int contaId, int page)
         {
-            int diasPadrão = 30;
-            int totalDias;
+            var pagination = (page - 1) * 30;
+            var dataInicial = DateTime.Now.Date.AddDays(1 - pagination);
+            var dataFinal = dataInicial.Date.AddDays(-30 - pagination);
 
-            if (dataInicial == DateTime.MinValue) dataInicial = DateTime.Now.Date;
-            if (dataFinal == DateTime.MinValue) totalDias = diasPadrão;
 
-            DateTime dataInicialChecked = dataInicial;
-            DateTime dataFinalChecked = dataFinal;
+            var queriedTransacoes = (from transacao in bancoBdContext.Transacoes
+                                     where transacao.DataMovimentacao <= dataInicial
+                                     && transacao.DataMovimentacao >= dataFinal
+                                     && transacao.ContaId == contaId
+                                     select transacao).ToList();
 
-            var transacoes = bancoBdContext.Transacoes;
-            List<Transacao> transacaoDoUser = new List<Transacao>();
-            foreach (var transacao in transacoes)
-            {
-                if (transacao.ContaId == contaId)
-                {
-                    transacaoDoUser.Add(transacao);
-                }
-            }
-            return transacaoDoUser;
+            return queriedTransacoes;
         }
 
         public Transacao GetTransacao(int id)

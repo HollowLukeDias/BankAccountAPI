@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BankAccountAPI.Services
 {
-    public class Saque : ITransacao
+    public class Saque
     {
 
         public Saque(Conta conta, float quantidade)

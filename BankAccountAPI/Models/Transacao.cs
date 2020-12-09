@@ -37,7 +37,7 @@ namespace BankAccountAPI.Models
                                float taxas, float valorFinal, float saldoAnterior,
                                float saldoAtual, int contaId, int? contaRelacionadaId)
         {
-            DataMovimentacao = DateTime.Now;
+            DataMovimentacao = DateTime.UtcNow;
             TipoMovimentacao = tipoMovimentacao;
             Resultado = resultado;
             ValorPagoTotal = valorPagoTotal;

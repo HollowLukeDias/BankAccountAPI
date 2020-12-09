@@ -20,26 +20,16 @@ namespace BankAccountAPI.Controllers
         }
 
         [HttpGet("{id}/transacoes")]
-        public IActionResult Get(int id, string dataStringInicial, string dataStringFinal)
+        public IActionResult Get(int id, int? page)
         {
-            DateTime dataInicial;
-            DateTime dataFinal;
-            try
-            { 
-                DateTime.TryParse(dataStringInicial, out dataInicial);
-                DateTime.TryParse(dataStringFinal, out dataFinal);
-            }
-            catch
-            {
-                return BadRequest("DATA INFORMADA NÃO É VÁLIDA");
-            }
-            var transacoes = _transacoes.GetTransacoes(id, dataInicial, dataFinal);
+            var checkPage = page ?? 1;
+            var transacoes = _transacoes.GetTransacoes(id, checkPage);
             if (transacoes == null) return NotFound("Não existem Transações");
             return Ok(transacoes);
         }
 
         [HttpGet("{id}/transacoes/{idTransacao}")]
-        public IActionResult Get(int id, int idTranscao)
+        public IActionResult Get(int id, int idTransacao)
         {
             var transacao = _transacoes.GetTransacao(id);
             if (transacao == null) return NotFound($"Não foram encontradas Transações com ID: {id}");
