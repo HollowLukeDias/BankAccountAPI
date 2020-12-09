@@ -21,6 +21,16 @@ namespace BankAccountAPI.UnitTests
             _contaJenn.Saldo = 200.12F;
         }
 
+        [Test]
+        [TestCase(100, "SUCESSO")]
+        [TestCase(200, "SALDO INSUFICIENTE")]
+        public void Transferencia_QuandoChamado_RetornaResultadoDaTentativa(float valor, string resultadoEsperado)
+        {
+            var info = new Transferencia(_contaLucas, _contaJenn, valor);
+            var resultado = info.Resultado;
+
+            Assert.That(resultado, Is.EqualTo(resultadoEsperado));
+        }
 
     }
 }

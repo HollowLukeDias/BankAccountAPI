@@ -23,12 +23,26 @@ namespace BankAccountAPI.UnitTests
         [Test]
         [TestCase(102, "SALDO INSUFICIENTE")]
         [TestCase(50, "SUCESSO")]
+        [TestCase(4, "VALOR IGUAL OU MAIOR QUE A TAXA")]
+        [TestCase(1, "VALOR IGUAL OU MAIOR QUE A TAXA")]
         public void Saque_QuandoChamado_RetornaResultadoDaTentativa(float valorTeste, string resultadoEsperado)
         {
             var informacoes = new Saque(_contaLucas, valorTeste);
             var resultado = informacoes.Resultado;
 
             Assert.That(resultado, Is.EqualTo(resultadoEsperado));
+        }
+
+
+        [Test]
+        [TestCase(1000, 0)]
+        [TestCase(10, 4)]
+        public void Saque_QuandoChamado_ValorDaTaxa(float valor, float taxaEsperada)
+        {
+            var informacoes = new Saque(_contaLucas, valor);
+            var taxaRetorno = informacoes.ValorTaxa;
+
+            Assert.That(taxaRetorno, Is.EqualTo(taxaEsperada));
         }
 
         [Test]
@@ -56,25 +70,14 @@ namespace BankAccountAPI.UnitTests
         }
 
         [Test]
-        [TestCase(4)]
-        [TestCase(1)]
-        public void Saque_QuandoIgualOuMenorQueATaxa_NaoAlteraSaldo(int valor)
+        public void Saque_QuandoSaldoIgualAoValor_SaldoRestanteZerado()
         {
-            var informacoes = new Saque(_contaLucas, valor);
-            var resultado = informacoes.Resultado;
+            var valorSaque = _contaLucas.Saldo;
 
-            Assert.That(resultado, Is.EqualTo("VALOR IGUAL OU MAIOR QUE A TAXA"));
-        }
+            var info = new Saque(_contaLucas, valorSaque);
+            var saldoAtual = info.SaldoAtual;
 
-        [Test]
-        [TestCase(1000, 0)]
-        [TestCase(10, 4)]
-        public void Saque_QuandoChamado_ValorDaTaxa(float valor, float taxaEsperada)
-        {
-            var informacoes = new Saque(_contaLucas, valor);
-            var taxaRetorno = informacoes.ValorTaxa;
-
-            Assert.That(taxaRetorno, Is.EqualTo(taxaEsperada));
+            Assert.That(saldoAtual, Is.EqualTo(0));
         }
     }
 }
