@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BankAccountAPI.Helpers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace BankAccountAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/contas")]
     [ApiController]
     public class SaqueController : ControllerBase
     {
         private IContas _contas;
         private IBanco _bancoDb;
 
-        public DepositoController(IBanco bancoDb, IContas contas)
+        public SaqueController(IBanco bancoDb, IContas contas)
         {
             _contas = contas;
             _bancoDb = bancoDb;
         }
 
-        [HttpPost("saque/{id}")]
+        [HttpPost("{id}/saque")]
         public IActionResult Saque(int id, float quantidade)
         {
             var conta = _contas.GetConta(id);

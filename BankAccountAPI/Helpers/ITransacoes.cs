@@ -8,7 +8,7 @@ namespace BankAccountAPI.Helpers
 {
     public interface ITransacoes
     {
-        IEnumerable<Transacao> GetTransacoes();
+        IEnumerable<Transacao> GetTransacoes(int contaId, DateTime dataInicial, DateTime dataFinal);
         Transacao GetTransacao(int id);
     }
 }

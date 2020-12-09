@@ -16,9 +16,27 @@ namespace BankAccountAPI.Helpers
             bancoBdContext = _bancoDbContext;
         }
 
-        public IEnumerable<Transacao> GetTransacoes()
+        public IEnumerable<Transacao> GetTransacoes(int contaId, DateTime dataInicial, DateTime dataFinal)
         {
-            return bancoBdContext.Transacoes;
+            int diasPadrão = 30;
+            int totalDias;
+
+            if (dataInicial == DateTime.MinValue) dataInicial = DateTime.Now.Date;
+            if (dataFinal == DateTime.MinValue) totalDias = diasPadrão;
+
+            DateTime dataInicialChecked = dataInicial;
+            DateTime dataFinalChecked = dataFinal;
+
+            var transacoes = bancoBdContext.Transacoes;
+            List<Transacao> transacaoDoUser = new List<Transacao>();
+            foreach (var transacao in transacoes)
+            {
+                if (transacao.ContaId == contaId)
+                {
+                    transacaoDoUser.Add(transacao);
+                }
+            }
+            return transacaoDoUser;
         }
 
         public Transacao GetTransacao(int id)

@@ -1,4 +1,4 @@
-﻿using BankAccountAPI.Services;
+﻿using BankAccountAPI.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BankAccountAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/contas")]
     [ApiController]
     public class DepositoController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace BankAccountAPI.Controllers
             if (conta == null) return NotFound($"Não foi encontrado uma conta de ID: {id}");
             if (quantidade <= 0) return BadRequest($"O valor {quantidade:F2} não é aceito");
             _bancoDb.TransacaoDeposito(conta, quantidade);
-            return Ok($"Tentativa de deposito efeutada, por favor verifique os Extrato");
+            return Ok("Tentativa de deposito efeutada, por favor verifique o Extrato");
         }
     }
 }

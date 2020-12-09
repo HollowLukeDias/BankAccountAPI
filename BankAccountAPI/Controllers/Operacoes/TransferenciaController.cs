@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BankAccountAPI.Helpers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace BankAccountAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/contas")]
     [ApiController]
     public class TransferenciaController : ControllerBase
     {
         private IContas _contas;
         private IBanco _bancoDb;
 
-        public DepositoController(IBanco bancoDb, IContas contas)
+        public TransferenciaController(IBanco bancoDb, IContas contas)
         {
             _contas = contas;
             _bancoDb = bancoDb;
@@ -22,8 +23,8 @@ namespace BankAccountAPI.Controllers
 
 
 
-        [HttpPost("transferencia/{id}")]
-        public IActionResult Transferencia(int id, float quantidade, int idDestino)
+        [HttpPost("{id}/transferencia/{idDestino}")]
+        public IActionResult Transferencia(int id, int idDestino, float quantidade)
         {
             var conta = _contas.GetConta(id);
             var contaDestino = _contas.GetConta(idDestino);

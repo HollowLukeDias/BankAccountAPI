@@ -1,5 +1,5 @@
 ﻿using BankAccountAPI.Models;
-using BankAccountAPI.Services;
+using BankAccountAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,15 +19,26 @@ namespace BankAccountAPI.Controllers
             _transacoes = transacoes;
         }
 
-        [HttpGet("/{id}/transacoes")]
-        public IActionResult Get()
+        [HttpGet("{id}/transacoes")]
+        public IActionResult Get(int id, string dataStringInicial, string dataStringFinal)
         {
-            var transacoes = _transacoes.GetTransacoes();
+            DateTime dataInicial;
+            DateTime dataFinal;
+            try
+            { 
+                DateTime.TryParse(dataStringInicial, out dataInicial);
+                DateTime.TryParse(dataStringFinal, out dataFinal);
+            }
+            catch
+            {
+                return BadRequest("DATA INFORMADA NÃO É VÁLIDA");
+            }
+            var transacoes = _transacoes.GetTransacoes(id, dataInicial, dataFinal);
             if (transacoes == null) return NotFound("Não existem Transações");
             return Ok(transacoes);
         }
 
-        [HttpGet("/{id}/transacoes/{idTransacao}")]
+        [HttpGet("{id}/transacoes/{idTransacao}")]
         public IActionResult Get(int id, int idTranscao)
         {
             var transacao = _transacoes.GetTransacao(id);

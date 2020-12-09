@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace BankAccountAPI.Helpers
+{ 
     public interface IBanco
     {
         void TransacaoDeposito(Conta conta, float quantidade);

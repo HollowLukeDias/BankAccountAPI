@@ -1,5 +1,6 @@
 ﻿using BankAccountAPI.Data;
 using BankAccountAPI.Models;
+using BankAccountAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +25,12 @@ namespace BankAccountAPI.Helpers
         /// <param name="quantidade"></param>
         public void TransacaoDeposito(Conta conta, float quantidade)
         {
-            var informacoesDeDeposito = conta.Deposito(quantidade);
+            var deposito = new Deposito(conta, quantidade);
 
-            var saldoAnterior   = informacoesDeDeposito.saldoAnterior;
-            var saldoAtual      = informacoesDeDeposito.saldoAtual;
-            var resultado       = informacoesDeDeposito.resultado;
-            var taxa            = informacoesDeDeposito.valorTaxa;
+            var saldoAnterior   = deposito.SaldoAnterior;
+            var saldoAtual      = deposito.SaldoAtual;
+            var resultado       = deposito.Resultado;
+            var taxa            = deposito.ValorTaxa;
             var valorTaxado     = quantidade - taxa;
 
             var transacao = new Transacao();
@@ -46,12 +47,12 @@ namespace BankAccountAPI.Helpers
         /// <param name="quantidade"></param>
         public void TransacaoSaque(Conta conta, float quantidade)
         {
-            var informacoesDeSaque = conta.Saque(quantidade);
+            var saque = new Saque(conta, quantidade);
 
-            var resultado       = informacoesDeSaque.resultado;
-            var taxa            = informacoesDeSaque.valorTaxa;
-            var saldoAnterior   = informacoesDeSaque.saldoAnterior;
-            var saldoAtual      = informacoesDeSaque.saldoAtual;
+            var resultado       = saque.Resultado;
+            var taxa            = saque.ValorTaxa;
+            var saldoAnterior   = saque.SaldoAnterior;
+            var saldoAtual      = saque.SaldoAtual;
             var valorTaxado     = quantidade - taxa;
 
             var transacao = new Transacao();
@@ -70,14 +71,15 @@ namespace BankAccountAPI.Helpers
         /// <param name="quantidade"></param>
         public void TransacaoTransferencia(Conta conta, Conta contaDestino, float quantidade)
         {
-            var informacoesDeTransferencia = conta.Transferencia(quantidade, contaDestino);
+            var transferencia = new Transferencia(conta, contaDestino, quantidade);
 
-            var resultado = informacoesDeTransferencia.resultado;
-            var taxa = informacoesDeTransferencia.valorTaxa;
-            var saldoAnterior = informacoesDeTransferencia.saldoAnterior;
-            var saldoAtual = informacoesDeTransferencia.saldoAtual;
-            var saldoAnteriorDestino    = informacoesDeTransferencia.saldoAnteriorDestino;
-            var saldoAtualDestino = informacoesDeTransferencia.saldoAtualDestino;
+            var resultado               = transferencia.Resultado;
+            var taxa                    = transferencia.ValorTaxa;
+            var saldoAnterior           = transferencia.SaldoAnterior;
+            var saldoAtual              = transferencia.SaldoAtual;
+            var saldoAnteriorDestino    = transferencia.SaldoAnteriorDestino;
+            var saldoAtualDestino       = transferencia.SaldoAtualDestino;
+
             var valorTaxado = quantidade - taxa;
 
             if (resultado == "SUCESSO")
