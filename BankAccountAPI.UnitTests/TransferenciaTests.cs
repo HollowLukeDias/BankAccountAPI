@@ -5,7 +5,7 @@ using System;
 namespace BankAccountAPI.UnitTests
 {
     [TestFixture]
-    public class OperacoesBancariasTests
+    public class TransferenciaTests
     {
         Conta _contaLucas;
         Conta _contaJenn;

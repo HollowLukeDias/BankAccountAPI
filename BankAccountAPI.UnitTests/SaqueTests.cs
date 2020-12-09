@@ -11,9 +11,11 @@ namespace BankAccountAPI.UnitTests
         [SetUp]
         public void Setup()
         {
-            _contaLucas = new Conta();
-            _contaLucas.Id = 1;
-            _contaLucas.Saldo = 100.50F;
+            _contaLucas = new Conta
+            {
+                Id = 1,
+                Saldo = 100.50F
+            };
         }
 
 

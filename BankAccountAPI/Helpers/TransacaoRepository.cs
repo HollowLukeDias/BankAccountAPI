@@ -32,9 +32,13 @@ namespace BankAccountAPI.Helpers
             return queriedTransacoes;
         }
 
-        public Transacao GetTransacao(int id)
+        public Transacao GetTransacao(int idConta, int idTransacao)
         {
-            return bancoBdContext.Transacoes.Find(id);
+            var queriedTransacao = (from transacao in bancoBdContext.Transacoes
+                                     where transacao.Id == idTransacao
+                                     && transacao.ContaId == idConta
+                                     select transacao).First();
+            return queriedTransacao;
         }
     }
 }

@@ -29,10 +29,10 @@ namespace BankAccountAPI.Controllers
         }
 
         [HttpGet("{id}/transacoes/{idTransacao}")]
-        public IActionResult Get(int id, int idTransacao)
+        public IActionResult Get(int idConta, int idTransacao)
         {
-            var transacao = _transacoes.GetTransacao(id);
-            if (transacao == null) return NotFound($"Não foram encontradas Transações com ID: {id}");
+            var transacao = _transacoes.GetTransacao(idConta, idTransacao);
+            if (transacao == null) return NotFound($"Não econtramos a Transação de ID: {idTransacao} na conta de ID: {idConta}");
             return Ok(transacao);
         }
     }
