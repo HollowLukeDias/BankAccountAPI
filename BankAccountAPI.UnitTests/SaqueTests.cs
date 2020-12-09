@@ -23,8 +23,9 @@ namespace BankAccountAPI.UnitTests
         [Test]
         [TestCase(102, "SALDO INSUFICIENTE")]
         [TestCase(50, "SUCESSO")]
-        [TestCase(4, "VALOR IGUAL OU MAIOR QUE A TAXA")]
-        [TestCase(1, "VALOR IGUAL OU MAIOR QUE A TAXA")]
+        [TestCase(100.5F, "SUCESSO")]
+        [TestCase(4, "VALOR IGUAL OU MENOR QUE A TAXA")]
+        [TestCase(1, "VALOR IGUAL OU MENOR QUE A TAXA")]
         public void Saque_QuandoChamado_RetornaResultadoDaTentativa(float valorTeste, string resultadoEsperado)
         {
             var informacoes = new Saque(_contaLucas, valorTeste);
@@ -35,9 +36,12 @@ namespace BankAccountAPI.UnitTests
 
 
         [Test]
+        [TestCase(100, 4)]
+        [TestCase(5, 4)]
         [TestCase(1000, 0)]
-        [TestCase(10, 4)]
-        public void Saque_QuandoChamado_ValorDaTaxa(float valor, float taxaEsperada)
+        [TestCase(4, 0)]
+        [TestCase(2, 0)]
+        public void Saque_DependendoValorValido_CobraTaxa(float valor, float taxaEsperada)
         {
             var informacoes = new Saque(_contaLucas, valor);
             var taxaRetorno = informacoes.ValorTaxa;
@@ -46,11 +50,14 @@ namespace BankAccountAPI.UnitTests
         }
 
         [Test]
-        public void Saque_QuandoSaldoInsuficiente_NaoAlteraSaldo()
+        [TestCase(101.5F)]
+        [TestCase(1000)]
+        [TestCase(4)]
+        [TestCase(1)]
+        public void Saque_QuandoSaldoInvalido_NaoAlteraSaldo(float valor)
         {
-            var valorSaque = 102;
 
-            var informacoes = new Saque(_contaLucas, valorSaque);
+            var informacoes = new Saque(_contaLucas, valor);
             var saldoAnterior = informacoes.SaldoAnterior;
             var saldoAtual = informacoes.SaldoAtual;
 
@@ -79,5 +86,6 @@ namespace BankAccountAPI.UnitTests
 
             Assert.That(saldoAtual, Is.EqualTo(0));
         }
+
     }
 }

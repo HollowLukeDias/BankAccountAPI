@@ -37,7 +37,7 @@ namespace BankAccountAPI.Services
         {
             var saldoAnteriorDestino = contaDestino.Saldo;
             var saldoAnterior = conta.Saldo;
-            if (quantidade <= Conta.TaxaValorTransferencia) return (conta.Saldo, conta.Saldo, resultado: "VALOR IGUAL OU MAIOR QUE A TAXA", 0, saldoAnteriorDestino, saldoAnteriorDestino);
+            if (quantidade <= Conta.TaxaValorTransferencia) return (conta.Saldo, conta.Saldo, resultado: "VALOR IGUAL OU MENOR QUE A TAXA", 0, saldoAnteriorDestino, saldoAnteriorDestino);
             if (conta.Saldo >= quantidade)
             {
                 conta.Saldo -= quantidade;

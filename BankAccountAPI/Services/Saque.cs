@@ -26,7 +26,7 @@ namespace BankAccountAPI.Services
         private (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa) TentarSacar(Conta conta, float quantidade)
         {
             var saldoAnterior = conta.Saldo;
-            if (quantidade <=  Conta.TaxaValorSaque) return (conta.Saldo, conta.Saldo, resultado: "VALOR IGUAL OU MAIOR QUE A TAXA", Conta.TaxaValorSaque);
+            if (quantidade <=  Conta.TaxaValorSaque) return (conta.Saldo, conta.Saldo, resultado: "VALOR IGUAL OU MENOR QUE A TAXA", 0);
             if (conta.Saldo >= quantidade)
             {
                 conta.Saldo -= quantidade;
