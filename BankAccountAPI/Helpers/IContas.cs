@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BankAccountAPI.Services
+namespace BankAccountAPI.Helpers
 {
     public interface IContas
     {

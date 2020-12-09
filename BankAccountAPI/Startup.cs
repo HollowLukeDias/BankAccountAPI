@@ -32,7 +32,7 @@ namespace BankAccountAPI
             services.AddDbContext<BancoDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=BancoX"));
             services.AddScoped<IContas, ContasRepository>();
             services.AddScoped<IBanco, BancoOperacoes>();
-            services.AddScoped<IExtratos, ExtratoRepository>();
+            services.AddScoped<ITransacoes, TransacaoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

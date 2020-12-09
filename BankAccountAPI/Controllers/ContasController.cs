@@ -1,4 +1,4 @@
-﻿using BankAccountAPI.Services;
+﻿using BankAccountAPI.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -36,7 +36,6 @@ namespace BankAccountAPI.Controllers
             var conta = _contasDb.GetConta(id);
             if (conta == null) return BadRequest($"Não existe conta com esse ID: {id}");
             return Ok(conta);
-
         }
 
         // POST api/contas

@@ -11,7 +11,7 @@ namespace BankAccountAPI.Data
     {
         public BancoDbContext(DbContextOptions<BancoDbContext> options) : base(options) { }
 
-        public DbSet<Extrato> Extratos { get; set; }
+        public DbSet<Transacao> Transacoes { get; set; }
         public DbSet<Conta> Contas { get; set; }
     }
 }
