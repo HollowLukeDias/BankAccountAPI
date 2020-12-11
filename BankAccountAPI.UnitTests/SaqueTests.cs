@@ -21,11 +21,11 @@ namespace BankAccountAPI.UnitTests
 
 
         [Test]
-        [TestCase(102, "SALDO INSUFICIENTE")]
+        [TestCase(102, "FALHA")]
         [TestCase(50, "SUCESSO")]
         [TestCase(100.5F, "SUCESSO")]
-        [TestCase(4, "VALOR IGUAL OU MENOR QUE A TAXA")]
-        [TestCase(1, "VALOR IGUAL OU MENOR QUE A TAXA")]
+        [TestCase(4, "FALHA")]
+        [TestCase(1, "FALHA")]
         public void Saque_QuandoChamado_RetornaResultadoDaTentativa(float valorTeste, string resultadoEsperado)
         {
             var informacoes = new Saque(_contaLucas, valorTeste);
@@ -56,7 +56,6 @@ namespace BankAccountAPI.UnitTests
         [TestCase(1)]
         public void Saque_QuandoSaldoInvalido_NaoAlteraSaldo(float valor)
         {
-
             var informacoes = new Saque(_contaLucas, valor);
             var saldoAnterior = informacoes.SaldoAnterior;
             var saldoAtual = informacoes.SaldoAtual;

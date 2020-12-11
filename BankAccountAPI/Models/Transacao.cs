@@ -12,6 +12,7 @@ namespace BankAccountAPI.Models
         public DateTime DataMovimentacao    { get; set; }
         public string TipoMovimentacao      { get; set; }
         public string Resultado             { get; set; }
+        public float ValorTentativa         { get; set; }
         public float ValorPagoTotal         { get; set; }
         public float Taxas                  { get; set; }
         public float ValorFinal             { get; set; }
@@ -20,20 +21,7 @@ namespace BankAccountAPI.Models
         public int ContaId                  { get; set; }
         public int? ContaRelacionadaId      { get; set; }
 
-
-        /// <summary>
-        /// Preenche os dados da Transação com todas as informações que ele precisa
-        /// </summary>
-        /// <param name="tipoMovimentacao"></param>
-        /// <param name="resultado"></param>
-        /// <param name="valorPagoTotal"></param>
-        /// <param name="taxas"></param>
-        /// <param name="valorFinal"></param>
-        /// <param name="saldoAnterior"></param>
-        /// <param name="saldoAtual"></param>
-        /// <param name="contaId"></param>
-        /// <param name="contaDestinoId"></param>
-        public void SetTransacao(string tipoMovimentacao, string resultado, float valorPagoTotal,
+        public void SetTransacao(string tipoMovimentacao, string resultado, float valorTentativa, float valorPagoTotal,
                                float taxas, float valorFinal, float saldoAnterior,
                                float saldoAtual, int contaId, int? contaRelacionadaId)
         {
@@ -42,6 +30,7 @@ namespace BankAccountAPI.Models
             Resultado = resultado;
             ValorPagoTotal = valorPagoTotal;
             Taxas = taxas;
+            ValorTentativa = valorTentativa;  
             ValorFinal = valorFinal;
             SaldoAnterior = saldoAnterior;
             SaldoAtual = saldoAtual;

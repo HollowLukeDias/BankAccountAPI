@@ -1,10 +1,6 @@
 ﻿using BankAccountAPI.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankAccountAPI.Controllers
 {
@@ -42,7 +38,6 @@ namespace BankAccountAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Conta conta)
         {
-
             if (ModelState.IsValid)
             {
                 _contasDb.CriarConta(conta);
@@ -63,7 +58,7 @@ namespace BankAccountAPI.Controllers
                 _contasDb.AtualizarConta(conta);
                 return Ok($"Conta de ID: {id} atualizada");
             }
-            catch (Exception)
+            catch
             {
                 return NotFound($"Não existe conta com o ID: {id}");
             }
@@ -78,7 +73,7 @@ namespace BankAccountAPI.Controllers
                 _contasDb.DeletarConta(id);
                 return Ok($"Conta com ID: {id} deletada");
             }
-            catch (Exception)
+            catch
             {
                 return NotFound($"Não foi encontrada uma conta com o ID: {id}");
             }

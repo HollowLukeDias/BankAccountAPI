@@ -27,5 +27,10 @@ namespace BankAccountAPI
 
         public float Saldo { get; set; }
 
+        public void AlterarSaldo(float valor)
+        {
+            Saldo += valor;
+        }
+
     }
 }

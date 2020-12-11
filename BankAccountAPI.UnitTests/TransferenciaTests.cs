@@ -24,9 +24,9 @@ namespace BankAccountAPI.UnitTests
         [Test]
         [TestCase(100, "SUCESSO")]
         [TestCase(100.5F, "SUCESSO")]
-        [TestCase(200, "SALDO INSUFICIENTE")]
-        [TestCase(1, "VALOR IGUAL OU MENOR QUE A TAXA")]
-        [TestCase(0.5F, "VALOR IGUAL OU MENOR QUE A TAXA")]
+        [TestCase(200, "FALHA")]
+        [TestCase(1, "FALHA")]
+        [TestCase(0.5F, "FALHA")]
         public void Transferencia_QuandoChamado_RetornaResultadoDaTentativa(float valor, string resultadoEsperado)
         {
             var info = new Transferencia(_contaLucas, _contaJenn, valor);

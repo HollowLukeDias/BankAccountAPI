@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankAccountAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,28 +8,34 @@ namespace BankAccountAPI.Services
 {
     public class Deposito
     {
-        public Deposito(Conta conta, float quantidade)
+        public Deposito(Conta conta, float valorTentativa)
         {
-            var info = TentarDepositar(conta, quantidade);
-            SaldoAnterior   = info.saldoAnterior;
-            SaldoAtual      = info.saldoAtual;
-            Resultado       = info.resultado;
-            ValorTaxa       = info.valorTaxa;
-
+            TentarDepositar(conta, valorTentativa);
+            GerarTransacao(conta.Id, valorTentativa);
         }
 
         public float SaldoAnterior  { get; set; }
         public float SaldoAtual     { get; set; }
         public string Resultado     { get; set; }
         public float ValorTaxa      { get; set; }
+        public Transacao transacao  { get; set; }
 
-        private (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa) TentarDepositar(Conta conta, float quantidade)
+        private void TentarDepositar(Conta conta, float valor)
         {
-            var saldoAnterior = conta.Saldo;
-            var taxa = quantidade * Conta.TaxaPorcentagemDeposito;
-            var valorTaxado = quantidade - taxa;
-            conta.Saldo += valorTaxado;
-            return (saldoAnterior, conta.Saldo, "SUCESSO", taxa);
+            SaldoAnterior = conta.Saldo;
+            ValorTaxa = valor * Conta.TaxaPorcentagemDeposito;
+            var valorTaxado = valor - ValorTaxa;
+
+            conta.AlterarSaldo(valorTaxado);
+            SaldoAtual = conta.Saldo;
+            Resultado = "SUCESSO";
+        }
+
+        private void GerarTransacao(int contaId, float valorTentativa)
+        {
+            transacao = new Transacao();
+            var valorTotal = valorTentativa - ValorTaxa;
+            transacao.SetTransacao("DEPOSITO", Resultado, valorTentativa, valorTentativa, ValorTaxa, valorTotal, SaldoAnterior, SaldoAtual, contaId, null);
         }
     }
 }

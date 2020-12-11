@@ -3,7 +3,6 @@ using BankAccountAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankAccountAPI.Helpers
 {
@@ -20,7 +19,7 @@ namespace BankAccountAPI.Helpers
         {
             var pagination = (page - 1) * 30;
             var dataInicial = DateTime.Now.Date.AddDays(1 - pagination);
-            var dataFinal = dataInicial.Date.AddDays(-30 - pagination);
+            var dataFinal = dataInicial.Date.AddDays(-30);
 
 
             var queriedTransacoes = (from transacao in bancoBdContext.Transacoes

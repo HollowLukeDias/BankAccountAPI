@@ -16,4 +16,8 @@
     <ProjectReference Include="..\BankAccountAPI\BankAccountAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

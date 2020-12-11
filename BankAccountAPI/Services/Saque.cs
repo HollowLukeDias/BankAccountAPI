@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankAccountAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,31 +9,52 @@ namespace BankAccountAPI.Services
     public class Saque
     {
 
-        public Saque(Conta conta, float quantidade)
+        public Saque(Conta conta, float valor)
         {
-            var info = TentarSacar(conta, quantidade);
-            SaldoAnterior   = info.saldoAnterior;
-            SaldoAtual      = info.saldoAtual;
-            Resultado       = info.resultado;
-            ValorTaxa       = info.valorTaxa;
+            TentarSacar(conta, valor);
+            GerarTransacao(conta.Id, valor);
         }
+
+
 
         public float SaldoAnterior  { get; set; }
         public float SaldoAtual     { get; set; }
         public string Resultado     { get; set; }
         public float ValorTaxa      { get; set; }
+        public Transacao transacao  { get; set; }
 
 
-        private (float saldoAnterior, float saldoAtual, string resultado, float valorTaxa) TentarSacar(Conta conta, float quantidade)
+        private void TentarSacar(Conta conta, float valor)
         {
-            var saldoAnterior = conta.Saldo;
-            if (quantidade <=  Conta.TaxaValorSaque) return (conta.Saldo, conta.Saldo, resultado: "VALOR IGUAL OU MENOR QUE A TAXA", 0);
-            if (conta.Saldo >= quantidade)
-            {
-                conta.Saldo -= quantidade;
-                return (saldoAnterior, conta.Saldo, resultado: "SUCESSO", Conta.TaxaValorSaque);
+            SaldoAnterior = conta.Saldo;
+
+            if (valor <=  Conta.TaxaValorSaque || valor > conta.Saldo ){
+                SaldoAtual = SaldoAnterior;
+                Resultado = "FALHA";
+                ValorTaxa = 0;
+                return;
             }
-            return (conta.Saldo, conta.Saldo, resultado: "SALDO INSUFICIENTE", 0);
+
+            conta.AlterarSaldo(-valor);
+
+            SaldoAtual = conta.Saldo;
+            Resultado = "SUCESSO";
+            ValorTaxa = Conta.TaxaValorSaque;
+        }
+
+        private void GerarTransacao(int contaId, float valorTentativa)
+        {
+            transacao = new Transacao();
+
+            if (Resultado == "FALHA")
+            {
+                transacao.SetTransacao("SAQUE", Resultado, valorTentativa, 0, ValorTaxa, 0, SaldoAnterior, SaldoAtual, contaId, null);
+                return;
+            }
+
+            var valorTaxado = valorTentativa - ValorTaxa;
+            transacao.SetTransacao("SAQUE", Resultado, valorTentativa, valorTentativa, ValorTaxa, valorTaxado, SaldoAnterior, SaldoAtual, contaId, null);
+
         }
     }
 }
