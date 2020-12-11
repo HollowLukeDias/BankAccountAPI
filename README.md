@@ -10,9 +10,8 @@
 
 ## Sobre o Projeto
 
-This is my first website, the first time I try MVC and CRUD. I am learning so much right now, it truly is great!
-I started learning Ruby some months ago, and now I finally started Ruby on Rails, I tested some stuff and deployed it heroku!
-I want to keep learning Ruby and continue creating new and better apps, so I can become a great developer!
+Esse é a minha primeira API, pelo processo seletivo da Stone fui dado a oportunidade de mostrar meus conhecimentos e curva de aprendizado fazendo uma API com testes automatizados e documentação. Gostei muito da oportunidade e estou fazendo meu melhor para ser um projeto bem modelo, com uma boa estrutura e boa legibilidade de código.
+Estou aprendendo muito com o projeto, primeiro aprender como criar APIs, depois como fazer testes no .NET Core, e muitas outras coisas no meio do caminho, com certeza vou sair desse projeto com mais conhecimento do que tinha antes, por isso já agradeço muito à Stone.
 
 ### Feito Com
 * C# 7
