@@ -27,7 +27,8 @@ Estou aprendendo muito com o projeto, primeiro tive que aprender como criar APIs
 * Depositar uma quantia para uma conta bancária
 * Sacar uma quantia de uma conta bancária
 * Transferir dinheiro entre contas bancárias
-* Requisitar o Extrato da sua conta dos últimos 30 dias
+* Requisitar o Extrato da sua conta dos últimos 30 dias por página
+* Ver uma transação específica
 
 
 ## Contato
