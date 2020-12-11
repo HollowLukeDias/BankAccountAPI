@@ -34,7 +34,7 @@ Estou aprendendo muito com o projeto, primeiro tive que aprender como criar APIs
 
 Lucas Dias - [lhollowwizard@gmail.com](lhollowwizard@gmail.com) - +55 (21) 98344-8013
 
-Project Link: [https://github.com/HollowLukeDias/alpha-rails-blog](https://github.com/HollowLukeDias/alpha-rails-blog)
+Project Link: [https://github.com/HollowLukeDias/BankAccountAPI](https://github.com/HollowLukeDias/BankAccountAPI)
 
 
 
