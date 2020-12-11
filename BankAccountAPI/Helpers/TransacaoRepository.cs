@@ -34,9 +34,9 @@ namespace BankAccountAPI.Helpers
         public Transacao GetTransacao(int idConta, int idTransacao)
         {
             var queriedTransacao = (from transacao in bancoBdContext.Transacoes
-                                     where transacao.Id == idTransacao
-                                     && transacao.ContaId == idConta
-                                     select transacao).First();
+                                    where transacao.Id == idTransacao
+                                    && transacao.ContaId == idConta
+                                    select transacao).First();
             return queriedTransacao;
         }
     }

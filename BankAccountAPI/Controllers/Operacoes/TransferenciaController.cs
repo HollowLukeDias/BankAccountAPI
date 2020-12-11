@@ -1,10 +1,5 @@
 ﻿using BankAccountAPI.Helpers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankAccountAPI.Controllers
 {
@@ -24,7 +19,7 @@ namespace BankAccountAPI.Controllers
 
 
         [HttpPost("{id}/transferencia/{idDestino}")]
-        public IActionResult Transferencia(int id, int idDestino, float quantidade)
+        public IActionResult Transferencia(int id, int idDestino, decimal quantidade)
         {
             var conta = _contas.GetConta(id);
             var contaDestino = _contas.GetConta(idDestino);

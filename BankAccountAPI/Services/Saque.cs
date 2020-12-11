@@ -1,15 +1,11 @@
 ﻿using BankAccountAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankAccountAPI.Services
 {
     public class Saque
     {
 
-        public Saque(Conta conta, float valor)
+        public Saque(Conta conta, decimal valor)
         {
             TentarSacar(conta, valor);
             GerarTransacao(conta.Id, valor);
@@ -17,18 +13,19 @@ namespace BankAccountAPI.Services
 
 
 
-        public float SaldoAnterior  { get; set; }
-        public float SaldoAtual     { get; set; }
-        public string Resultado     { get; set; }
-        public float ValorTaxa      { get; set; }
-        public Transacao transacao  { get; set; }
+        public decimal SaldoAnterior { get; set; }
+        public decimal SaldoAtual { get; set; }
+        public string Resultado { get; set; }
+        public decimal ValorTaxa { get; set; }
+        public Transacao transacao { get; set; }
 
 
-        private void TentarSacar(Conta conta, float valor)
+        private void TentarSacar(Conta conta, decimal valor)
         {
             SaldoAnterior = conta.Saldo;
 
-            if (valor <=  Conta.TaxaValorSaque || valor > conta.Saldo ){
+            if (valor <= Conta.TaxaValorSaque || valor > conta.Saldo)
+            {
                 SaldoAtual = SaldoAnterior;
                 Resultado = "FALHA";
                 ValorTaxa = 0;
@@ -42,7 +39,7 @@ namespace BankAccountAPI.Services
             ValorTaxa = Conta.TaxaValorSaque;
         }
 
-        private void GerarTransacao(int contaId, float valorTentativa)
+        private void GerarTransacao(int contaId, decimal valorTentativa)
         {
             transacao = new Transacao();
 

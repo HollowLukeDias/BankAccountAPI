@@ -5,26 +5,26 @@ namespace BankAccountAPI.Services
     public class Transferencia
     {
 
-        public Transferencia(Conta conta, Conta contaDestino, float valor)
+        public Transferencia(Conta conta, Conta contaDestino, decimal valor)
         {
             TentarTransferencia(conta, contaDestino, valor);
             GerarTransacoes(conta.Id, contaDestino.Id, valor);
         }
 
-        public float SaldoAnterior          { get; set; }
-        public float SaldoAtual             { get; set; }
-        public string Resultado             { get; set; }
-        public float ValorTaxa              { get; set; }
-        public float SaldoAnteriorDestino   { get; set; }
-        public float SaldoAtualDestino      { get; set; }
-        public Transacao transacao          { get; set; }
-        public Transacao transacaoDestino    { get; set; }
+        public decimal SaldoAnterior { get; set; }
+        public decimal SaldoAtual { get; set; }
+        public string Resultado { get; set; }
+        public decimal ValorTaxa { get; set; }
+        public decimal SaldoAnteriorDestino { get; set; }
+        public decimal SaldoAtualDestino { get; set; }
+        public Transacao transacao { get; set; }
+        public Transacao transacaoDestino { get; set; }
 
 
-        public void TentarTransferencia(Conta conta, Conta contaDestino, float valor)
+        public void TentarTransferencia(Conta conta, Conta contaDestino, decimal valor)
         {
             SaldoAnteriorDestino = contaDestino.Saldo;
-            SaldoAnterior        = conta.Saldo;
+            SaldoAnterior = conta.Saldo;
 
             if (valor <= Conta.TaxaValorTransferencia || valor > conta.Saldo)
             {
@@ -46,11 +46,12 @@ namespace BankAccountAPI.Services
             SaldoAtualDestino = contaDestino.Saldo;
         }
 
-        private void GerarTransacoes(int contaId, int contaDestinoId, float valorTentativa)
+        private void GerarTransacoes(int contaId, int contaDestinoId, decimal valorTentativa)
         {
             transacao = new Transacao();
 
-            if (Resultado == "FALHA") {
+            if (Resultado == "FALHA")
+            {
                 transacao.SetTransacao("TRANSACAO - ENVIO", Resultado, valorTentativa, 0, 0, 0, SaldoAnterior, SaldoAtual, contaId, contaDestinoId);
                 return;
             }

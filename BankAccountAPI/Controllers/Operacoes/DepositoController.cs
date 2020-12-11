@@ -1,10 +1,5 @@
 ﻿using BankAccountAPI.Helpers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankAccountAPI.Controllers
 {
@@ -22,7 +17,7 @@ namespace BankAccountAPI.Controllers
         }
 
         [HttpPost("{id}/deposito")]
-        public IActionResult Deposito(int id, float quantidade)
+        public IActionResult Deposito(int id, decimal quantidade)
         {
             var conta = _contas.GetConta(id);
             if (conta == null) return NotFound($"Não foi encontrado uma conta de ID: {id}");

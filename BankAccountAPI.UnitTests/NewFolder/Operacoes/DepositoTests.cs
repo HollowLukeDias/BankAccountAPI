@@ -1,8 +1,7 @@
 ﻿using BankAccountAPI.Services;
 using NUnit.Framework;
-using System;
 
-namespace BankAccountAPI.UnitTests
+namespace BankAccountAPI.UnitTests.Operacoes
 {
     [TestFixture]
     class DepositoTests
@@ -15,21 +14,23 @@ namespace BankAccountAPI.UnitTests
             _contaLucas = new Conta
             {
                 Id = 1,
-                Saldo = 100.50F
+                Saldo = 100.50M
             };
         }
 
         [Test]
-        public void Deposita_QuandoChamado_AdicionaValorAoSaldo()
-        {
-            var valorDeposito = 1000;
+        [TestCase(1, 0.99)]
+        [TestCase(1000, 990)]
+        [TestCase(876.22, 867.46)]
 
+        public void Deposita_QuandoChamado_AdicionaValorTaxadoAoSaldoS(decimal valorDeposito, decimal valorTaxadoEsperado)
+        {
             var informacoes = new Deposito(_contaLucas, valorDeposito);
             var saldoAnterior = informacoes.SaldoAnterior;
             var saldoAtual = informacoes.SaldoAtual;
-            var taxa = informacoes.ValorTaxa;
+            var valorTaxado = saldoAtual - saldoAnterior;
 
-            Assert.That(valorDeposito == (saldoAtual - saldoAnterior) + taxa);
+            Assert.That(valorTaxado , Is.EqualTo(valorTaxadoEsperado));
         }
 
         [Test]

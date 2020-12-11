@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Security;
-using System.Threading.Tasks;
 
 namespace BankAccountAPI
 {
     public class Conta
     {
-        [NotMapped]
-        protected internal static readonly float TaxaPorcentagemDeposito = 1 / 100F;
-        [NotMapped]
-        protected internal static readonly float TaxaValorSaque = 4.00F;
-        [NotMapped]
-        protected internal static readonly float TaxaValorTransferencia = 1.00F;
+        protected internal static readonly decimal TaxaPorcentagemDeposito = 1 / 100M;
+        protected internal static readonly decimal TaxaValorSaque = 4.00M;
+        protected internal static readonly decimal TaxaValorTransferencia = 1.00M;
 
         [Key]
         public int Id { get; set; }
@@ -25,9 +17,9 @@ namespace BankAccountAPI
         [RegularExpression(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Nome inválido")]
         public string NomeCliente { get; set; }
 
-        public float Saldo { get; set; }
+        public decimal Saldo { get; set; }
 
-        public void AlterarSaldo(float valor)
+        public void AlterarSaldo(decimal valor)
         {
             Saldo += valor;
         }

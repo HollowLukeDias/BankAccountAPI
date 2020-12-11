@@ -1,10 +1,5 @@
-﻿using BankAccountAPI.Models;
-using BankAccountAPI.Helpers;
+﻿using BankAccountAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankAccountAPI.Controllers
 {

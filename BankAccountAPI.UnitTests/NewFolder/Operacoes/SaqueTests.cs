@@ -1,8 +1,7 @@
 ﻿using BankAccountAPI.Services;
 using NUnit.Framework;
-using System;
 
-namespace BankAccountAPI.UnitTests
+namespace BankAccountAPI.UnitTests.Operacoes
 {
     [TestFixture]
     class SaqueTests
@@ -14,7 +13,7 @@ namespace BankAccountAPI.UnitTests
             _contaLucas = new Conta
             {
                 Id = 1,
-                Saldo = 100.50F
+                Saldo = 100.50M
             };
         }
 
@@ -23,10 +22,10 @@ namespace BankAccountAPI.UnitTests
         [Test]
         [TestCase(102, "FALHA")]
         [TestCase(50, "SUCESSO")]
-        [TestCase(100.5F, "SUCESSO")]
+        [TestCase(100.5, "SUCESSO")]
         [TestCase(4, "FALHA")]
         [TestCase(1, "FALHA")]
-        public void Saque_QuandoChamado_RetornaResultadoDaTentativa(float valorTeste, string resultadoEsperado)
+        public void Saque_QuandoChamado_RetornaResultadoDaTentativa(decimal valorTeste, string resultadoEsperado)
         {
             var informacoes = new Saque(_contaLucas, valorTeste);
             var resultado = informacoes.Resultado;
@@ -41,7 +40,7 @@ namespace BankAccountAPI.UnitTests
         [TestCase(1000, 0)]
         [TestCase(4, 0)]
         [TestCase(2, 0)]
-        public void Saque_DependendoValorValido_CobraTaxa(float valor, float taxaEsperada)
+        public void Saque_DependendoValorValido_CobraTaxa(decimal valor, decimal taxaEsperada)
         {
             var informacoes = new Saque(_contaLucas, valor);
             var taxaRetorno = informacoes.ValorTaxa;
@@ -50,11 +49,11 @@ namespace BankAccountAPI.UnitTests
         }
 
         [Test]
-        [TestCase(101.5F)]
+        [TestCase(101.5)]
         [TestCase(1000)]
         [TestCase(4)]
         [TestCase(1)]
-        public void Saque_QuandoSaldoInvalido_NaoAlteraSaldo(float valor)
+        public void Saque_QuandoSaldoInvalido_NaoAlteraSaldo(decimal valor)
         {
             var informacoes = new Saque(_contaLucas, valor);
             var saldoAnterior = informacoes.SaldoAnterior;
