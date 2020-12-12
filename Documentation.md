@@ -174,6 +174,7 @@ Quando tudo isso terminar ele vai acrescentar a Transação ao Banco de Dados e 
 #### Exemplo de Depósito:
 **api/contas/1/deposito?valor=100**
 - Supondo que existe a conta com ID = 1
+
 Calcula a Taxa de 1% em cima do valor que é de 100, achando a taxa de valor 1
 Adiciona o valor menos a taxa na conta, ou melhor, 99
 Gera a Transação com todos os dados.
@@ -206,6 +207,7 @@ Caso o valor passado na URL seja menor ou igual a 0.
 Primeiro ele vai verificar duas coisas:
 - Se o valor da tentativa é menor ou igual a taxa
 - Se a conta tem o Saldo necessário para fazer esse Saque
+
 Caso um dos dois seja verdade, não será sacado o dinheiro da conta, para que ela não fique com Saldo negativo, ou para o valor do saque depois da taxa não ser negativo.
 Em seguida uma transação será gerada, com o resultado igual a "FALHA", para mostrar que ocorreu um erro durante o saque.
 
@@ -215,16 +217,18 @@ No final de qualquer um dos dados ele irá retornar um Ok, e pedir pro usuário 
 
 #### Exemplo De Saque Com Sucesso:
 **api/contas/1/saque?valor=100**
--Supondo que a Conta de ID = 1 exista
--Supondo que a Conta de ID = 1 tenha um Saldo maior ou igual a 100
+- Supondo que a Conta de ID = 1 exista
+- Supondo que a Conta de ID = 1 tenha um Saldo maior ou igual a 100
+
 Irá testar para ver se valor é menor que a taxa, porém não é, e em seguida testará se tem saldo o suficiente, e realmente há.
 Com isso o valor será subtraído do Saldo da Conta, sendo desses 100, 4 de taxa.
 Em seguida será gerada uma transação com os dados que foram tirados da tentativa de Saque, essa transação terá resultado = "SUCESSO"
 
 #### Exemplo De Saque Com Falha:
 **api/contas/1/saque?valor=100**
--Supondo que a Conta de ID = 1 exista
--Supondo que a Conta de ID = 1 tenha um Saldo menor que 100
+- Supondo que a Conta de ID = 1 exista
+- Supondo que a Conta de ID = 1 tenha um Saldo menor que 100
+
 Irá testar para ver se o valor é menor que a taxa, porém não é, e em seguida testará se tem saldo o suficiente, e verá que não tem Saldo o suficiente na conta para continuar o Saque. Ele não subtraíra da conta e irá gerar uma Transação com o resultado = "FALHA"
 
 ### Transferência
@@ -253,6 +257,7 @@ Caso o valor passado na URL seja menor ou igual a 0.
 Primeiro ele vai verificar duas coisas:
 - Se o valor da tentativa é menor ou igual a taxa
 - Se a conta tem o Saldo necessário para fazer essa Transferência
+
 Caso um dos dois seja verdade, não será transferido o dinheiro da conta, para que ela não fique com Saldo negativo, ou para o valor da Transferencia depois da taxa não ser negativo.
 Em seguida uma transação será gerada, com o resultado igual a "FALHA", para mostrar que ocorreu um erro durante o a Transferencia.
 
@@ -260,16 +265,18 @@ Caso nenhum dos casos sejam verdadeiros, ele irá subtrair aquele valor da Conta
 
 #### Exemplo de Transferência com Sucesso
 **api/contas/1/transferencia/2?valor=100**
--Supondo que a Conta de ID = 1 e conta de ID = 2 existam
--Supondo que a Conta de ID = 1 tenha um Saldo maior ou igual a 100
+- Supondo que a Conta de ID = 1 e conta de ID = 2 existam
+- Supondo que a Conta de ID = 1 tenha um Saldo maior ou igual a 100
+
 Irá testar para ver se valor é menor que a taxa, porém não é, e em seguida testará se tem saldo o suficiente, e realmente há.
 Com isso o valor será subtraído do Saldo da Conta Origem, e será somado na Conta Destino menos o 1 de taxa.
 Em seguida serão geradas duas Transações com os dados que foram tirados da tentativa de Transferência, essa duas transações terão resultado = "SUCESSO", a vinculada à conta Origem terá tipo = "TRANSFERENCIA - ENVIO" e a vinculada à conta Destino terá o tipo = "TRANSFERENCIA - RECEBIMENTO"
 
 #### Exemplo de Transferência com Falha
 **api/contas/1/transferencia/2?valor=100**
--Supondo que a Conta de ID = 1 e conta de ID = 2 existam
--Supondo que a Conta de ID = 1 tenha um Saldo menor que 100
+- Supondo que a Conta de ID = 1 e conta de ID = 2 existam
+- Supondo que a Conta de ID = 1 tenha um Saldo menor que 100
+
 Irá testar para ver se o valor é menor que a taxa, porém não é, e em seguida testará se tem saldo da conta Origem é o suficiente, e verá que não tem Saldo o suficiente na conta para continuar a Transferência. Ele não subtraíra da Conta Origem e irá gerar apenas uma Transação com o resultado = "FALHA"
 
 ### Transação
