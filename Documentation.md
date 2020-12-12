@@ -155,7 +155,7 @@ Valor é quanto de dinheiro será depositado na conta.
 
 - ### Exemplo de Request:
 
-    /api/contas/1/deposito?valor=100
+      /api/contas/1/deposito?valor=100
     
 Você irá tentará fazer um deposito de valor = 100 na conta de ID = 1.
 
@@ -175,7 +175,7 @@ Quando tudo isso terminar ele vai acrescentar a Transação ao Banco de Dados e 
 
 - ### Exemplo de Depósito:
 
-    /api/contas/1/deposito?valor=100
+       /api/contas/1/deposito?valor=100
     
 - Supondo que existe a conta com ID = 1
 
@@ -196,7 +196,7 @@ Valor é quanto de dinheiro será sacado da conta.
 
 - ### Exemplo de Request:
 
-    /api/contas/1/saque?valor=100
+         /api/contas/1/saque?valor=100
     
 Você irá tentará fazer um saque de valor = 100 na conta de ID = 1.
 
@@ -222,7 +222,7 @@ No final de qualquer um dos dados ele irá retornar um Ok, e pedir pro usuário 
 
 - ### Exemplo De Saque Com Sucesso:
 
-    /api/contas/1/saque?valor=100
+       /api/contas/1/saque?valor=100
     
 1. Supondo que a Conta de ID = 1 exista
 2. Supondo que a Conta de ID = 1 tenha um Saldo maior ou igual a 100
@@ -233,7 +233,7 @@ Em seguida será gerada uma transação com os dados que foram tirados da tentat
 
 - ### Exemplo De Saque Com Falha:
 
-    /api/contas/1/saque?valor=100
+      /api/contas/1/saque?valor=100
     
 1. Supondo que a Conta de ID = 1 exista
 2. Supondo que a Conta de ID = 1 tenha um Saldo menor que 100
@@ -251,7 +251,8 @@ Valor é quanto de dinheiro será transferidos de uma conta para a outra.
 
 - ### Exemplo de Request:
 
-    api/contas/1/transfrencia/2?valor=100
+      api/contas/1/transfrencia/2?valor=100
+      
 Você irá tentará fazer um transferência de valor = 100 da conta de ID = 1 para a conta de ID = 2.
 
 - ### Possíveis Retornos:
@@ -273,7 +274,9 @@ Em seguida uma transação será gerada, com o resultado igual a "FALHA", para m
 Caso nenhum dos casos sejam verdadeiros, ele irá subtrair aquele valor da Conta Origem e somar o valor menos a taxa da Conta Destino, essa taxa será de 1, e irá gerar uma Transação para cada conta com o resultado igual a "SUCESSO". Uma Transação será vinculada à conta Origem e a outra à conta Destino. 
 
 - ### Exemplo de Transferência com Sucesso
-    /api/contas/1/transferencia/2?valor=100
+
+      /api/contas/1/transferencia/2?valor=100
+      
 1. Supondo que a Conta de ID = 1 e conta de ID = 2 existam
 2. Supondo que a Conta de ID = 1 tenha um Saldo maior ou igual a 100
 
@@ -282,7 +285,9 @@ Com isso o valor será subtraído do Saldo da Conta Origem, e será somado na Co
 Em seguida serão geradas duas Transações com os dados que foram tirados da tentativa de Transferência, essa duas transações terão resultado = "SUCESSO", a vinculada à conta Origem terá tipo = "TRANSFERENCIA - ENVIO" e a vinculada à conta Destino terá o tipo = "TRANSFERENCIA - RECEBIMENTO"
 
 - ### Exemplo de Transferência com Falha
-    /api/contas/1/transferencia/2?valor=100
+
+      /api/contas/1/transferencia/2?valor=100
+    
 1. Supondo que a Conta de ID = 1 e conta de ID = 2 existam
 2. Supondo que a Conta de ID = 1 tenha um Saldo menor que 100
 
