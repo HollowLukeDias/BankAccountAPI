@@ -17,7 +17,7 @@ namespace BankAccountAPI.Services
         public decimal SaldoAtual { get; set; }
         public string Resultado { get; set; }
         public decimal ValorTaxa { get; set; }
-        public Transacao transacao { get; set; }
+        public Transacao Transacao { get; set; }
 
 
         private void TentarSacar(Conta conta, decimal valor)
@@ -41,16 +41,16 @@ namespace BankAccountAPI.Services
 
         private void GerarTransacao(int contaId, decimal valorTentativa)
         {
-            transacao = new Transacao();
+            Transacao = new Transacao();
 
             if (Resultado == "FALHA")
             {
-                transacao.SetTransacao("SAQUE", Resultado, valorTentativa, 0, ValorTaxa, 0, SaldoAnterior, SaldoAtual, contaId, null);
+                Transacao.SetTransacao("SAQUE", Resultado, valorTentativa, 0, ValorTaxa, 0, SaldoAnterior, SaldoAtual, contaId, null);
                 return;
             }
 
             var valorTaxado = valorTentativa - ValorTaxa;
-            transacao.SetTransacao("SAQUE", Resultado, valorTentativa, valorTentativa, ValorTaxa, valorTaxado, SaldoAnterior, SaldoAtual, contaId, null);
+            Transacao.SetTransacao("SAQUE", Resultado, valorTentativa, valorTentativa, ValorTaxa, valorTaxado, SaldoAnterior, SaldoAtual, contaId, null);
 
         }
     }

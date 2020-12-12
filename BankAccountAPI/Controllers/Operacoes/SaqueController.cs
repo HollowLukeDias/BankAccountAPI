@@ -17,12 +17,14 @@ namespace BankAccountAPI.Controllers
         }
 
         [HttpPost("{id}/saque")]
-        public IActionResult Saque(int id, decimal quantidade)
+        public IActionResult Saque(int id, decimal valor)
         {
+            if (valor <= 0) return BadRequest($"O valor {valor:F2} não é aceito");
+
             var conta = _contas.GetConta(id);
             if (conta == null) return NotFound($"Não foi encontrado uma conta de ID: {id}");
-            if (quantidade <= 0) return BadRequest($"O valor {quantidade:F2} não é aceito");
-            _bancoDb.TransacaoSaque(conta, quantidade);
+
+            _bancoDb.TransacaoSaque(conta, valor);
             return Ok("Tentativa de saque efetuada, por favor verifique o Extrato");
         }
     }

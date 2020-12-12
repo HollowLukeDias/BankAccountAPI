@@ -50,8 +50,8 @@ namespace BankAccountAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Conta conta)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
             if (id != conta.Id) return BadRequest($"O ID enviado: {id} é diferente do ID da conta: {conta.Id}");
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             try
             {

@@ -17,8 +17,8 @@ namespace BankAccountAPI.Services
         public decimal ValorTaxa { get; set; }
         public decimal SaldoAnteriorDestino { get; set; }
         public decimal SaldoAtualDestino { get; set; }
-        public Transacao transacao { get; set; }
-        public Transacao transacaoDestino { get; set; }
+        public Transacao Transacao { get; set; }
+        public Transacao TransacaoDestino { get; set; }
 
 
         public void TentarTransferencia(Conta conta, Conta contaDestino, decimal valor)
@@ -48,21 +48,21 @@ namespace BankAccountAPI.Services
 
         private void GerarTransacoes(int contaId, int contaDestinoId, decimal valorTentativa)
         {
-            transacao = new Transacao();
+            Transacao = new Transacao();
 
             if (Resultado == "FALHA")
             {
-                transacao.SetTransacao("TRANSACAO - ENVIO", Resultado, valorTentativa, 0, 0, 0, SaldoAnterior, SaldoAtual, contaId, contaDestinoId);
+                Transacao.SetTransacao("TRANSFERENCIA - ENVIO", Resultado, valorTentativa, 0, 0, 0, SaldoAnterior, SaldoAtual, contaId, contaDestinoId);
                 return;
             }
 
             var valorPago = SaldoAtual - SaldoAnterior;
             var valorTransferido = valorPago - Conta.TaxaValorTransferencia;
-            transacao.SetTransacao("TRANSACAO - ENVIO", Resultado, valorTentativa, valorPago, Conta.TaxaValorTransferencia,
+            Transacao.SetTransacao("TRANSFERENCIA - ENVIO", Resultado, valorTentativa, valorPago, Conta.TaxaValorTransferencia,
                                     valorTransferido, SaldoAnterior, SaldoAtual, contaId, contaDestinoId);
 
-            transacaoDestino = new Transacao();
-            transacaoDestino.SetTransacao("TRANSACAO - RECEBIMENTO", Resultado, valorTentativa, valorPago, Conta.TaxaValorTransferencia,
+            TransacaoDestino = new Transacao();
+            TransacaoDestino.SetTransacao("TRANSFERENCIA - RECEBIMENTO", Resultado, valorTentativa, valorPago, Conta.TaxaValorTransferencia,
                                             valorTransferido, SaldoAnteriorDestino, SaldoAtualDestino, contaDestinoId, contaId);
         }
 

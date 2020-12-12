@@ -17,7 +17,7 @@ namespace BankAccountAPI.Helpers
         {
             var deposito = new Deposito(conta, quantidade);
 
-            bancoDbContext.Transacoes.Add(deposito.transacao);
+            bancoDbContext.Transacoes.Add(deposito.Transacao);
             bancoDbContext.SaveChanges(true);
         }
 
@@ -25,7 +25,7 @@ namespace BankAccountAPI.Helpers
         {
             var saque = new Saque(conta, quantidade);
 
-            bancoDbContext.Transacoes.Add(saque.transacao);
+            bancoDbContext.Transacoes.Add(saque.Transacao);
             bancoDbContext.SaveChanges(true);
         }
 
@@ -34,10 +34,10 @@ namespace BankAccountAPI.Helpers
         {
             var transferencia = new Transferencia(conta, contaDestino, quantidade);
 
-            bancoDbContext.Transacoes.Add(transferencia.transacao);
+            bancoDbContext.Transacoes.Add(transferencia.Transacao);
 
             if (transferencia.Resultado == "SUCESSO")
-                bancoDbContext.Transacoes.Add(transferencia.transacaoDestino);
+                bancoDbContext.Transacoes.Add(transferencia.TransacaoDestino);
 
             bancoDbContext.SaveChanges(true);
         }

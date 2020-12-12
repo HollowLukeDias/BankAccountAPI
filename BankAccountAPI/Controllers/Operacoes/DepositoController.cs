@@ -17,12 +17,14 @@ namespace BankAccountAPI.Controllers
         }
 
         [HttpPost("{id}/deposito")]
-        public IActionResult Deposito(int id, decimal quantidade)
+        public IActionResult Deposito(int id, decimal valor)
         {
+            if (valor <= 0) return BadRequest($"O valor {valor:F2} não é aceito");
+
             var conta = _contas.GetConta(id);
             if (conta == null) return NotFound($"Não foi encontrado uma conta de ID: {id}");
-            if (quantidade <= 0) return BadRequest($"O valor {quantidade:F2} não é aceito");
-            _bancoDb.TransacaoDeposito(conta, quantidade);
+
+            _bancoDb.TransacaoDeposito(conta, valor);
             return Ok("Tentativa de deposito efeutada, por favor verifique o Extrato");
         }
     }

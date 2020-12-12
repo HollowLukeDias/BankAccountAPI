@@ -15,7 +15,7 @@ namespace BankAccountAPI.Services
         public decimal SaldoAtual { get; set; }
         public string Resultado { get; set; }
         public decimal ValorTaxa { get; set; }
-        public Transacao transacao { get; set; }
+        public Transacao Transacao { get; set; }
 
         private void TentarDepositar(Conta conta, decimal valor)
         {
@@ -30,9 +30,9 @@ namespace BankAccountAPI.Services
 
         private void GerarTransacao(int contaId, decimal valorTentativa)
         {
-            transacao = new Transacao();
+            Transacao = new Transacao();
             var valorTotal = valorTentativa - ValorTaxa;
-            transacao.SetTransacao("DEPOSITO", Resultado, valorTentativa, valorTentativa, ValorTaxa, valorTotal, SaldoAnterior, SaldoAtual, contaId, null);
+            Transacao.SetTransacao("DEPOSITO", Resultado, valorTentativa, valorTentativa, ValorTaxa, valorTotal, SaldoAnterior, SaldoAtual, contaId, null);
         }
     }
 }
