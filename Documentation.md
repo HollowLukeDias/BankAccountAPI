@@ -295,14 +295,14 @@ Irá testar para ver se o valor é menor que a taxa, porém não é, e em seguid
 
 - ## Transação
 A transação é outra base da API, todas as operações geram uma Transação que é guardada no banco de dados, independente do fato dela ter sucesso ou não.
-Os dados principais da Transação são:
 
-- Data da Movimentação -> Para podermos gerar o Extrato dos últimos 30 dias essa informação é necessária
-- Tipo de Movimentação -> Para o usuário saber se entrou ou saiu dinheiro de sua conta
-- Resultado -> Para o usuário saber se a operação foi ou não bem sucedida
-- Valor Tentativa -> Qual valor o usuário passou naquela operação
-- Taxas -> Qual o valor total das taxas daquela Transação
-- ID da Conta -> Para poder passar essas informações pra conta específica que as fez
+- Os dados principais da Transação são:
+    - ***Data da Movimentação***: Para podermos gerar o Extrato dos últimos 30 dias essa informação é necessária
+    - ***Tipo de Movimentação***: Para o usuário saber se entrou ou saiu dinheiro de sua conta
+    - ***Resultado***: Para o usuário saber se a operação foi ou não bem sucedida
+    - ***Valor Tentativa***: Qual valor o usuário passou naquela operação
+    - ***Taxas***: Qual o valor total das taxas daquela Transação
+    - ***ID da Conta***: Para poder passar essas informações pra conta específica que as fez
 
 - ### Gerar Extrato
 Para gerar o Extrato você precisa de uma Conta cadastrada no banco de dados e essa conta precisa já ter feita algum tipo de Transação antes.
