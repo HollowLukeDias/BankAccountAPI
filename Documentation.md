@@ -27,13 +27,13 @@
     - [Saque](#saque)
       - [Exemplo de Request:](#exemplo-de-request-1)
       - [Possíveis Retornos:](#possíveis-retornos-6)
-      - [O que acontece na Tentiva de Saque:](#o-que-acontece-na-tentiva-de-saque)
+      - [O que acontece na Tentativa de Saque:](#o-que-acontece-na-tentativa-de-saque)
       - [Exemplo De Saque Com Sucesso:](#exemplo-de-saque-com-sucesso)
       - [Exemplo De Saque Com Falha:](#exemplo-de-saque-com-falha)
     - [Transferência](#transferência)
       - [Exemplo de Request:](#exemplo-de-request-2)
       - [Possíveis Retornos:](#possíveis-retornos-7)
-      - [O que acontece na Tentiva de Transferência:](#o-que-acontece-na-tentiva-de-transferência)
+      - [O que acontece na Tentativa de Transferência:](#o-que-acontece-na-tentativa-de-transferência)
       - [Exemplo de Transferência com Sucesso](#exemplo-de-transferência-com-sucesso)
       - [Exemplo de Transferência com Falha](#exemplo-de-transferência-com-falha)
     - [Transação](#transação)
@@ -61,7 +61,7 @@ Esta API oferece Endpoints para operações básicas de uma Conta Bancária.
 
 - ## Conta Bancária
 
-A base do programa, aliás, para se fazer um depósito, um saque, uma transferencia, ou até mesmo gerar um extrato você precisa que exista contas bancárias que armazem dados básicos como o Saldo, nome do cliente e o ID do cliente.
+A base do programa, aliás, para se fazer um depósito, um saque, uma transferencia, ou até mesmo gerar um extrato você precisa que exista contas bancárias que armazene dados básicos como o Saldo, nome do cliente e o ID do cliente.
 
   - ### Criar Conta
 
@@ -85,7 +85,7 @@ Apenas o Nome do Cliente é obrigatório, o ID vai ser gerado automaticamente se
 1. ##### Status 201: Created
     - Caso o Body seja válido, a conta será salva no banco de dados.
 2. ##### Status 400: Bad Request
-    - Caso o Body não seja válido, ele irá retornar uma mensagem de erro mostrando o motivo de não ter sido salvo.
+    - Caso o Body não seja válido, ele retornará uma mensagem de erro mostrando o motivo de não ter sido salvo.
 
 - ### Ler Todas As Contas
 A leitura de todas as contas se dá através da route:
@@ -96,7 +96,7 @@ Faça um Get Request.
 
 - #### Possíveis Retornos:
 1. ##### Status 200: Ok
-    - Caso existam Contas salvas no Banco de Dados, ele irá retornar uma lista com todas elas, além do Status Ok.
+    - Caso existam Contas salvas no Banco de Dados, ele retornará uma lista com todas elas, além do Status Ok.
 2. ##### Status 404: Not Found
     - Caso não existam Contas salvas no Banco de Dados.
 
@@ -127,7 +127,7 @@ Faça um Put Request e passe o ID da conta pela URL, além disso, passe os dados
 2. ##### Status 400: Bad Request (ID no URL diferente do ID no Body)
     - Caso o ID na URL seja diferente do ID no Body, não será atualizado.
 3. ##### Status 400: Bad Request (Problema no Body)
-    - Caso o Body não seja válido, ele irá retornar uma mensagem de erro mostrando o motivo de não ter sido salvo.
+    - Caso o Body não seja válido, ele retornará uma mensagem de erro mostrando o motivo de não ter sido salvo.
 4. ##### Status 404: Not Found
     - Caso não exista conta com o URL passado no banco de dados
 
@@ -157,7 +157,7 @@ Valor é quanto de dinheiro será depositado na conta.
 
       /api/contas/1/deposito?valor=100
     
-Você irá tentará fazer um deposito de valor = 100 na conta de ID = 1.
+Fará um deposito de valor = 100 na conta de ID = 1.
 
 - ### Possíveis Retornos:
 1. #### Status 200: Ok
@@ -169,7 +169,7 @@ Você irá tentará fazer um deposito de valor = 100 na conta de ID = 1.
 
 - ### O que acontece no Depósito:
 Primeiro ele faz o cálculo da taxa de Depósito, que é 1%, em cima do valor passado.
-Em seguida ele acrescente esse valor no Saldo da conta.
+Em seguida esse valor será acrescentado no Saldo da conta.
 E por último ele vai utilizar os dados do Depósito para gerar uma Transação.
 Quando tudo isso terminar ele vai acrescentar a Transação ao Banco de Dados e atualizar a Conta com o Saldo Atual.
 
@@ -198,7 +198,7 @@ Valor é quanto de dinheiro será sacado da conta.
 
          /api/contas/1/saque?valor=100
     
-Você irá tentará fazer um saque de valor = 100 na conta de ID = 1.
+Fará uma tentativa de saque de valor = 100 na conta de ID = 1.
 
 - ### Possíveis Retornos:
 1. #### Status 200: Ok
@@ -208,7 +208,7 @@ Você irá tentará fazer um saque de valor = 100 na conta de ID = 1.
 3. #### Status 400: Bad Request
     - Caso o valor passado na URL seja menor ou igual a 0.
 
-- ### O que acontece na Tentiva de Saque:
+- ### O que acontece na Tentativa de Saque:
 Primeiro ele vai verificar duas coisas:
 1. Se o valor da tentativa é menor ou igual a taxa
 2. Se a conta tem o Saldo necessário para fazer esse Saque
@@ -216,9 +216,9 @@ Primeiro ele vai verificar duas coisas:
 Caso um dos dois seja verdade, não será sacado o dinheiro da conta, para que ela não fique com Saldo negativo, ou para o valor do saque depois da taxa não ser negativo.
 Em seguida uma transação será gerada, com o resultado igual a "FALHA", para mostrar que ocorreu um erro durante o saque.
 
-Caso nenhum dos casos sejam verdadeiros, ele irá sacar aquele valor da conta, sendo que do total, 4 será de taxa, e irá gerar uma Transação com o resultado igual a "SUCESSO".
+Caso nenhum dos casos sejam verdadeiros, ele irá aquele valor da conta, sendo que do total, 4 será de taxa, e irá gerar uma Transação com o resultado igual a "SUCESSO".
 
-No final de qualquer um dos dados ele irá retornar um Ok, e pedir pro usuário olhar o Extrato para saber se a transação teve ou não sucesso
+No final de qualquer um dos dados retornará um Ok, e pedir pro usuário olhar o Extrato para saber se a transação teve ou não sucesso
 
 - ### Exemplo De Saque Com Sucesso:
 
@@ -253,7 +253,7 @@ Valor é quanto de dinheiro será transferidos de uma conta para a outra.
 
       api/contas/1/transfrencia/2?valor=100
       
-Você irá tentará fazer um transferência de valor = 100 da conta de ID = 1 para a conta de ID = 2.
+Fará a tentativa de transferência de valor = 100 da conta de ID = 1 para a conta de ID = 2.
 
 - ### Possíveis Retornos:
 1. #### Status 200: Ok
@@ -263,7 +263,7 @@ Você irá tentará fazer um transferência de valor = 100 da conta de ID = 1 pa
 3. #### Status 400: Bad Request
     - Caso o valor passado na URL seja menor ou igual a 0.
 
-- ### O que acontece na Tentiva de Transferência:
+- ### O que acontece na Tentativa de Transferência:
 Primeiro ele vai verificar duas coisas:
 1. Se o valor da tentativa é menor ou igual a taxa
 2. Se a conta tem o Saldo necessário para fazer essa Transferência
