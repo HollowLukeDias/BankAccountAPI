@@ -18,7 +18,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
             };
         }
 
-        [Test]
         [TestCase(1, 0.99)]
         [TestCase(1000, 990)]
         [TestCase(876.22, 867.46)]

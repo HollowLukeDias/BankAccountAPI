@@ -18,8 +18,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
         }
 
 
-
-        [Test]
         [TestCase(102, "FALHA")]
         [TestCase(50, "SUCESSO")]
         [TestCase(100.5, "SUCESSO")]
@@ -34,7 +32,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
         }
 
 
-        [Test]
         [TestCase(100, 4)]
         [TestCase(5, 4)]
         [TestCase(1000, 0)]
@@ -48,7 +45,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
             Assert.That(taxaRetorno, Is.EqualTo(taxaEsperada));
         }
 
-        [Test]
         [TestCase(101.5)]
         [TestCase(1000)]
         [TestCase(4)]

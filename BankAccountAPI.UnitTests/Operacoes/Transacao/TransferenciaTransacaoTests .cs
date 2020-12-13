@@ -24,7 +24,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             };
         }
 
-        [Test]
+        
         [TestCase(100, "SUCESSO")]
         [TestCase(100.5, "SUCESSO")]
         [TestCase(200, "FALHA")]
@@ -38,7 +38,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(transacao.Resultado, Is.EqualTo(resultadoEsperado));
         }
 
-        [Test]
+        
         [TestCase(100, "SUCESSO")]
         [TestCase(100.5, "SUCESSO")]
         public void Transferencia_QuandoSaldoDisponivel_GeraTransacaoDestinoComResultadoDaTentativaCorreto(decimal valor, string resultadoEsperado)
@@ -49,7 +49,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(transacao.Resultado, Is.EqualTo(resultadoEsperado));
         }
 
-        [Test]
+        
         [TestCase(200)]
         [TestCase(1)]
         [TestCase(0.5)]
@@ -60,7 +60,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(info.TransacaoDestino, Is.Null);
         }
 
-        [Test]
+        
         [TestCase(50, -50)]
         [TestCase(100.5, -100.5)]
         [TestCase(1.5, -1.5)]
@@ -73,7 +73,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(mudancaSaldo, Is.EqualTo(mudancaEsperada));
         }
 
-        [Test]
+        
         [TestCase(50)]
         [TestCase(100.5)]
         [TestCase(1.5)]
@@ -86,7 +86,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(mudancaSaldo, Is.EqualTo(mudancaSaldo));
         }
 
-        [Test]
+        
         [TestCase(110)]
         [TestCase(1)]
         [TestCase(0.5)]
@@ -99,7 +99,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(mudancaSaldo, Is.EqualTo(0));
         }
 
-        [Test]
+        
         [TestCase(50)]
         [TestCase(100)]
         public void Transferencia_QuandoSaldoDisponivel_CobraTaxa(decimal valor)
@@ -110,7 +110,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(transacao.Taxas, Is.EqualTo(1));
         }
 
-        [Test]
+
         [TestCase(1)]
         [TestCase(0.5)]
         [TestCase(102)]

@@ -20,7 +20,6 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             };
         }
 
-        [Test]
         [TestCase(2)]
         [TestCase(1000)]
         [TestCase(2131231.21)]
@@ -33,7 +32,6 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(transacao.Resultado, Is.EqualTo("SUCESSO"));
         }
 
-        [Test]
         [TestCase(2, 0.02)]
         [TestCase(1000, 10)]
         [TestCase(2131231.21, 21312.31)]
@@ -46,7 +44,6 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(transacao.Taxas, Is.EqualTo(taxaEsperada));
         }
 
-        [Test]
         [TestCase(2)]
         [TestCase(1000)]
         [TestCase(2131231.21)]
@@ -62,7 +59,6 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
             Assert.That(transacao.SaldoAtual, Is.EqualTo(saldoAtual));
         }
 
-        [Test]
         [TestCase(2)]
         [TestCase(1000)]
         [TestCase(2131231.21)]

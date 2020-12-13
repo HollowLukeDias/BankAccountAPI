@@ -20,7 +20,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
             _contaJenn.Saldo = 200.12M;
         }
 
-        [Test]
         [TestCase(100, "SUCESSO")]
         [TestCase(100.5, "SUCESSO")]
         [TestCase(200, "FALHA")]
@@ -34,7 +33,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
             Assert.That(resultado, Is.EqualTo(resultadoEsperado));
         }
 
-        [Test]
         [TestCase(50, -50)]
         [TestCase(100.5, -100.5)]
         [TestCase(1.5, -1.5)]
@@ -48,7 +46,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
             Assert.That(mudancaSaldo, Is.EqualTo(mudancaEsperada));
         }
 
-        [Test]
         [TestCase(110, 0)]
         [TestCase(1, 0)]
         [TestCase(0.5, 0)]
@@ -62,7 +59,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
             Assert.That(mudancaSaldo, Is.EqualTo(mudancaEsperada));
         }
 
-        [Test]
         [TestCase(50)]
         [TestCase(100)]
         public void Transferencia_QuandoSaldoDisponivel_CobraTaxa(decimal valor)
@@ -73,7 +69,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
             Assert.That(taxa, Is.EqualTo(1));
         }
 
-        [Test]
         [TestCase(1)]
         [TestCase(0.5)]
         [TestCase(102)]
@@ -86,7 +81,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
         }
 
 
-        [Test]
         [TestCase(50, 49)]
         [TestCase(100.5, 99.5)]
         [TestCase(1.5, 0.5)]
@@ -101,7 +95,6 @@ namespace BankAccountAPI.UnitTests.Operacoes
         }
 
 
-        [Test]
         [TestCase(110, 0)]
         [TestCase(1, 0)]
         [TestCase(0.5, 0)]
