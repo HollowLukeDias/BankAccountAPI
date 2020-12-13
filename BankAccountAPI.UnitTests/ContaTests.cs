@@ -1,6 +1,9 @@
 ﻿using BankAccountAPI.Helpers;
+using BankAccountAPI.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
+
 
 namespace BankAccountAPI.UnitTests
 {
@@ -8,12 +11,16 @@ namespace BankAccountAPI.UnitTests
     class ContaTests
     {
         private Conta _contaLuke;
-        private Mock<IContas> _contaRepository;
+        private Mock<DbContext> _dbContext;
+        private Mock<DbSet<Conta>> _dbSet;
 
         [SetUp]
         public void SetUp()
         {
-            _contaRepository = new Mock<IContas>();
+            _dbContext = new Mock<DbContext>();
+            _dbSet = new Mock<DbSet<Conta>>();
+            _dbContext.Setup(x => x.Set<Conta>()).Returns(_dbSet.Object);
+
             _contaLuke = new Conta
             {
                 Id = 1,
@@ -21,10 +28,18 @@ namespace BankAccountAPI.UnitTests
             };
         }
 
+        //Checado se falha ao mudar o método
         [Test]
-        public void CreateContas()
+        public void Create_ObjetoContaPassado_FuncaoCorreta()
         {
-            _contaRepository.Setup(c => c.CriarConta(_contaLuke));
+            _dbSet.Setup(x => x.Add(It.IsAny<Conta>()));
+
+            var repository = new Repository<Conta>(_dbContext.Object);
+            repository.Add(_contaLuke);
+
+            _dbContext.Verify(x => x.Set<Conta>());
+            _dbSet.Verify(x => x.Add(It.Is<Conta>(y => y == _contaLuke)));
+
         }
     }
 }
