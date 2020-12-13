@@ -1,6 +1,4 @@
 ﻿using BankAccountAPI.Services;
-using BankAccountAPI.Data;
-using Moq;
 using NUnit.Framework;
 
 namespace BankAccountAPI.UnitTests.Operacoes.Transacao
@@ -12,7 +10,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
 
         [SetUp]
         public void SetUp()
-        { 
+        {
             _contaLuke = new Conta
             {
                 Id = 1,

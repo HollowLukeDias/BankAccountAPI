@@ -1,12 +1,10 @@
 ﻿using BankAccountAPI.Data;
-using BankAccountAPI.Helpers;
 using BankAccountAPI.Models;
 using Moq;
 using NUnit.Framework;
-using System.Collections.Generic;
 using System.Data.Entity;
 
-namespace BankAccountAPI.UnitTests.NewFolder.Operacoes
+namespace BankAccountAPI.UnitTests
 {
     [TestFixture]
     class TransacaoTests

@@ -29,7 +29,7 @@ namespace BankAccountAPI.UnitTests.Operacoes
             var saldoAtual = informacoes.SaldoAtual;
             var valorTaxado = saldoAtual - saldoAnterior;
 
-            Assert.That(valorTaxado , Is.EqualTo(valorTaxadoEsperado));
+            Assert.That(valorTaxado, Is.EqualTo(valorTaxadoEsperado));
         }
 
         [Test]

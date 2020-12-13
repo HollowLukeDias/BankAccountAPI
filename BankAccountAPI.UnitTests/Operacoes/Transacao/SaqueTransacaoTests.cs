@@ -53,7 +53,7 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
         {
             var informacoes = new Saque(_contaLucas, valor);
             var transacao = informacoes.Transacao;
-            
+
             Assert.That(transacao.SaldoAnterior, Is.EqualTo(transacao.SaldoAtual));
         }
 

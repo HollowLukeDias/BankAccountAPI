@@ -20,7 +20,7 @@ namespace BankAccountAPI.Services
         private void TentarDepositar(Conta conta, decimal valor)
         {
             SaldoAnterior = conta.Saldo;
-            ValorTaxa = (decimal) Math.Round(valor * Conta.TaxaPorcentagemDeposito, 2);
+            ValorTaxa = (decimal)Math.Round(valor * Conta.TaxaPorcentagemDeposito, 2);
             var valorTaxado = valor - ValorTaxa;
 
             conta.AlterarSaldo(valorTaxado);
