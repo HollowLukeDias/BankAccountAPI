@@ -1,4 +1,6 @@
-﻿using BankAccountAPI.Helpers;
+﻿using BankAccountAPI.Data;
+using BankAccountAPI.Helpers;
+using BankAccountAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankAccountAPI.Controllers
@@ -7,12 +9,12 @@ namespace BankAccountAPI.Controllers
     [ApiController]
     public class DepositoController : ControllerBase
     {
-        private IContas _contas;
+        private IRepository<Conta> _contaRepository;
         private IBanco _bancoDb;
 
-        public DepositoController(IBanco bancoDb, IContas contas)
+        public DepositoController(IBanco bancoDb, BancoDbContext bancoDbContext)
         {
-            _contas = contas;
+            _contaRepository = new Repository<Conta>(bancoDbContext);
             _bancoDb = bancoDb;
         }
 
@@ -21,7 +23,7 @@ namespace BankAccountAPI.Controllers
         {
             if (valor <= 0) return BadRequest($"O valor {valor:F2} não é aceito");
 
-            var conta = _contas.GetConta(id);
+            var conta = _contaRepository.Get    (id);
             if (conta == null) return NotFound($"Não foi encontrado uma conta de ID: {id}");
 
             _bancoDb.TransacaoDeposito(conta, valor);

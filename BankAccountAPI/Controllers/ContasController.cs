@@ -1,4 +1,6 @@
-﻿using BankAccountAPI.Helpers;
+﻿using BankAccountAPI.Data;
+using BankAccountAPI.Helpers;
+using BankAccountAPI.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,18 +11,18 @@ namespace BankAccountAPI.Controllers
     public class ContasController : ControllerBase
     {
 
-        private IContas _contasDb;
+        private IRepository<Conta> _contaRepository;
 
-        public ContasController(IContas contasDb)
+        public ContasController(BancoDbContext bancoDb)
         {
-            _contasDb = contasDb;
+            _contaRepository = new Repository<Conta>(bancoDb);
         }
 
         // GET: api/contas
         [HttpGet]
         public IActionResult Get()
         {
-            var contas = _contasDb.GetContas();
+            var contas = _contaRepository.GetAll();
             if (contas == null) return BadRequest("Não existem contas cadastradas");
             return Ok(contas);
         }
@@ -29,7 +31,7 @@ namespace BankAccountAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var conta = _contasDb.GetConta(id);
+            var conta = _contaRepository.Get(id);
             if (conta == null) return BadRequest($"Não existe conta com esse ID: {id}");
             return Ok(conta);
         }
@@ -40,7 +42,7 @@ namespace BankAccountAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _contasDb.CriarConta(conta);
+                _contaRepository.Add(conta);
                 return StatusCode(StatusCodes.Status201Created);
             }
             return BadRequest(ModelState);
@@ -55,7 +57,7 @@ namespace BankAccountAPI.Controllers
 
             try
             {
-                _contasDb.AtualizarConta(conta);
+                _contaRepository.Update(conta);
                 return Ok($"Conta de ID: {id} atualizada");
             }
             catch
@@ -70,7 +72,8 @@ namespace BankAccountAPI.Controllers
         {
             try
             {
-                _contasDb.DeletarConta(id);
+                var conta = _contaRepository.Get(id);
+                _contaRepository.Remove(conta);
                 return Ok($"Conta com ID: {id} deletada");
             }
             catch

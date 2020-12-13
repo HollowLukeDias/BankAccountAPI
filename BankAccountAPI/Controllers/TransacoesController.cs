@@ -18,7 +18,6 @@ namespace BankAccountAPI.Controllers
         public IActionResult Get(int id, int? page)
         {
             var checkPage = page ?? 1;
-
             var transacoes = _transacoes.GetTransacoes(id, checkPage);
             if (transacoes == null) return NotFound("Não existem Transações");
             return Ok(transacoes);
