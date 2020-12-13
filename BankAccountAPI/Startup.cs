@@ -23,7 +23,6 @@ namespace BankAccountAPI
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<BancoDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=BancoX"));
-            services.AddScoped<IContas, ContasRepository>();
             services.AddScoped<IBanco, BancoOperacoes>();
             services.AddScoped<ITransacoes, TransacaoRepository>();
         }

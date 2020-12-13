@@ -1,4 +1,6 @@
-﻿using BankAccountAPI.Helpers;
+﻿using BankAccountAPI.Data;
+using BankAccountAPI.Helpers;
+using BankAccountAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankAccountAPI.Controllers
@@ -7,13 +9,13 @@ namespace BankAccountAPI.Controllers
     [ApiController]
     public class TransferenciaController : ControllerBase
     {
-        private IContas _contas;
+        private IRepository<Conta> _contaRepository;
         private IBanco _bancoDb;
 
-        public TransferenciaController(IBanco bancoDb, IContas contas)
+        public TransferenciaController(IBanco bancoDb, BancoDbContext bancoDbContext)
         {
-            _contas = contas;
             _bancoDb = bancoDb;
+            _contaRepository = new Repository<Conta>(bancoDbContext);
         }
 
 
@@ -23,10 +25,10 @@ namespace BankAccountAPI.Controllers
         {
             if (quantidade <= 0) return BadRequest($"O valor {quantidade:F2} não é aceito");
 
-            var conta = _contas.GetConta(id);
+            var conta = _contaRepository.Get(id);
             if (conta == null) return NotFound($"Não foi encontrado uma conta de Origem de ID: {id}");
 
-            var contaDestino = _contas.GetConta(idDestino);
+            var contaDestino = _contaRepository.Get(idDestino);
             if (contaDestino == null) return NotFound($"Não foi encontrado uma conta de Destino de ID: {idDestino}");
 
             _bancoDb.TransacaoTransferencia(conta, contaDestino, quantidade);
