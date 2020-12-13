@@ -33,9 +33,8 @@ namespace BankAccountAPI.Repositories
             return Entities.ToList();
         }
 
-        public void Remove(int id)
+        public void Remove(TEntity entity)
         {
-            var entity = Entities.Find(id);
             Entities.Remove(entity);
             Context.SaveChanges(true);
         }

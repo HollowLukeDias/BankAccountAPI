@@ -72,7 +72,8 @@ namespace BankAccountAPI.Controllers
         {
             try
             {
-                _contaRepository.Remove(id);
+                var conta = _contaRepository.Get(id);
+                _contaRepository.Remove(conta);
                 return Ok($"Conta com ID: {id} deletada");
             }
             catch

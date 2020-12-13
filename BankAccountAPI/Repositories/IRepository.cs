@@ -10,7 +10,7 @@ namespace BankAccountAPI.Repositories
     {
         void Add(TEntity entity);
         void Update(TEntity entity);
-        void Remove(int id);
+        void Remove(TEntity entity);
         TEntity Get(int id);
         IEnumerable<TEntity> GetAll();
 
