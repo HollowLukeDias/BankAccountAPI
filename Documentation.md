@@ -47,7 +47,7 @@
 
 ## Sobre a API
 
-Esta API oferece Endpoints para operações básicas de uma Conta Bancária.
+Esta é uma API desenvolvida usando conceitos REST, que representa de maneira simplificada o sistema de uma conta bancária e operações que podem ser feitas com ela. Desenvolvida como parte do desafio de programação da Stone. 
 
 ### Feito Com
 - [C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7)
