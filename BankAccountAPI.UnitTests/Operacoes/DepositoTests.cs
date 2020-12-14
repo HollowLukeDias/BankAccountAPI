@@ -11,11 +11,8 @@ namespace BankAccountAPI.UnitTests.Operacoes
         [SetUp]
         public void Setup()
         {
-            _contaLucas = new Conta
-            {
-                Id = 1,
-                Saldo = 100.50M
-            };
+            _contaLucas = new Conta { Id = 1 };
+            _contaLucas.AlterarSaldo(100);
         }
 
         [TestCase(1, 0.99)]

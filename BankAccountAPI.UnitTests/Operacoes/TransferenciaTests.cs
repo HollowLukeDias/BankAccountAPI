@@ -11,13 +11,11 @@ namespace BankAccountAPI.UnitTests.Operacoes
         [SetUp]
         public void Setup()
         {
-            _contaLucas = new Conta();
-            _contaLucas.Id = 1;
-            _contaLucas.Saldo = 100.50M;
+            _contaLucas = new Conta() { Id = 1 };
+            _contaLucas.AlterarSaldo(100.50M);
 
-            _contaJenn = new Conta();
-            _contaJenn.Id = 2;
-            _contaJenn.Saldo = 200.12M;
+            _contaJenn = new Conta() { Id = 2 };
+            _contaJenn.AlterarSaldo(200.12M);
         }
 
         [TestCase(100, "SUCESSO")]

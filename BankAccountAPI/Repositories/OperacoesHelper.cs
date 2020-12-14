@@ -8,19 +8,19 @@ namespace BankAccountAPI.Helpers
     public class BancoOperacoes : IBanco
     {
 
-        BancoDbContext bancoDbContext;
+        private readonly BancoDbContext _bancoDbContext;
 
         public BancoOperacoes(BancoDbContext _bancoDbContext)
         {
-            bancoDbContext = _bancoDbContext;
+            this._bancoDbContext = _bancoDbContext;
         }
 
         public Transacao TransacaoDeposito(Conta conta, decimal quantidade)
         {
             var deposito = new Deposito(conta, quantidade);
 
-            bancoDbContext.Transacoes.Add(deposito.Transacao);
-            bancoDbContext.SaveChanges(true);
+            _bancoDbContext.Transacoes.Add(deposito.Transacao);
+            _bancoDbContext.SaveChanges(true);
 
             return deposito.Transacao;
         }
@@ -29,8 +29,8 @@ namespace BankAccountAPI.Helpers
         {
             var saque = new Saque(conta, quantidade);
 
-            bancoDbContext.Transacoes.Add(saque.Transacao);
-            bancoDbContext.SaveChanges(true);
+            _bancoDbContext.Transacoes.Add(saque.Transacao);
+            _bancoDbContext.SaveChanges(true);
 
             return saque.Transacao;
         }
@@ -40,12 +40,12 @@ namespace BankAccountAPI.Helpers
         {
             var transferencia = new Transferencia(conta, contaDestino, quantidade);
 
-            bancoDbContext.Transacoes.Add(transferencia.Transacao);
+            _bancoDbContext.Transacoes.Add(transferencia.Transacao);
 
             if (transferencia.Resultado == "SUCESSO")
-                bancoDbContext.Transacoes.Add(transferencia.TransacaoDestino);
+                _bancoDbContext.Transacoes.Add(transferencia.TransacaoDestino);
 
-            bancoDbContext.SaveChanges(true);
+            _bancoDbContext.SaveChanges(true);
 
             return transferencia.Transacao;
         }

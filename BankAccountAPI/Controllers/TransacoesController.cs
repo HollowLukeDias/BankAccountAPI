@@ -7,7 +7,7 @@ namespace BankAccountAPI.Controllers
     [ApiController]
     public class TransacoesController : ControllerBase
     {
-        private ITransacoes _transacoes;
+        private readonly ITransacoes _transacoes;
 
         public TransacoesController(ITransacoes transacoes)
         {

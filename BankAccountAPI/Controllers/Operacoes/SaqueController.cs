@@ -9,8 +9,8 @@ namespace BankAccountAPI.Controllers
     [ApiController]
     public class SaqueController : ControllerBase
     {
-        private IRepository<Conta> _contaRepository;
-        private IBanco _bancoDb;
+        private readonly IRepository<Conta> _contaRepository;
+        private readonly IBanco _bancoDb;
 
         public SaqueController(IBanco bancoDb, BancoDbContext bancoDbContext)
         {

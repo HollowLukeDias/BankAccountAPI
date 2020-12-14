@@ -11,7 +11,7 @@ namespace BankAccountAPI.Controllers
     public class ContasController : ControllerBase
     {
 
-        private IRepository<Conta> _contaRepository;
+        private readonly IRepository<Conta> _contaRepository;
 
         public ContasController(BancoDbContext bancoDb)
         {

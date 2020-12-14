@@ -8,11 +8,11 @@ namespace BankAccountAPI.Helpers
 {
     public class TransacaoRepository : ITransacoes
     {
-        BancoDbContext bancoBdContext;
+        private readonly BancoDbContext _bancoBdContext;
 
         public TransacaoRepository(BancoDbContext _bancoDbContext)
         {
-            bancoBdContext = _bancoDbContext;
+            _bancoBdContext = _bancoDbContext;
         }
 
         public IEnumerable<Transacao> GetTransacoes(int contaId, int page)
@@ -22,7 +22,7 @@ namespace BankAccountAPI.Helpers
             var dataFinal = dataInicial.Date.AddDays(-30);
 
 
-            var queriedTransacoes = (from transacao in bancoBdContext.Transacoes
+            var queriedTransacoes = (from transacao in _bancoBdContext.Transacoes
                                      where transacao.DataMovimentacao <= dataInicial
                                      && transacao.DataMovimentacao >= dataFinal
                                      && transacao.ContaId == contaId
@@ -33,7 +33,7 @@ namespace BankAccountAPI.Helpers
 
         public Transacao GetTransacao(int idConta, int idTransacao)
         {
-            var queriedTransacao = (from transacao in bancoBdContext.Transacoes
+            var queriedTransacao = (from transacao in _bancoBdContext.Transacoes
                                     where transacao.Id == idTransacao
                                     && transacao.ContaId == idConta
                                     select transacao).First();

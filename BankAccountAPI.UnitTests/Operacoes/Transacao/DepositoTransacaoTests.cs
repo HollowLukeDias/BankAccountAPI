@@ -11,11 +11,8 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
         [SetUp]
         public void SetUp()
         {
-            _contaLuke = new Conta
-            {
-                Id = 1,
-                Saldo = 100
-            };
+            _contaLuke = new Conta { Id = 1 };
+            _contaLuke.AlterarSaldo(100);
         }
 
         [TestCase(2)]
@@ -73,7 +70,6 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
         [Test]
         public void Deposito_QuandoChamado_GeraTransacaoComContaIdCorreto()
         {
-            var saldoAnterior = _contaLuke.Saldo;
             var info = new Deposito(_contaLuke, 100);
             var transacao = info.Transacao;
 
@@ -83,7 +79,6 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
         [Test]
         public void Deposito_QuandoChamado_GeraTransacaoComTipoDeTransacaoCorreta()
         {
-            var saldoAnterior = _contaLuke.Saldo;
             var info = new Deposito(_contaLuke, 100);
             var transacao = info.Transacao;
 

@@ -16,7 +16,7 @@ namespace BankAccountAPI
         [RegularExpression(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Nome inválido")]
         public string NomeCliente { get; set; }
 
-        public decimal Saldo { get; set; }
+        public decimal Saldo { get; private set; }
 
         public void AlterarSaldo(decimal valor)
         {

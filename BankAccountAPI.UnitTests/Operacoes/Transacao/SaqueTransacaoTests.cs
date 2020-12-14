@@ -10,17 +10,15 @@ namespace BankAccountAPI.UnitTests.Operacoes.Transacao
         [SetUp]
         public void Setup()
         {
-            _contaLucas = new Conta
-            {
-                Id = 1,
-                Saldo = 100.50M
-            };
+            _contaLucas = new Conta { Id = 1 };
+            _contaLucas.AlterarSaldo(100.5M);
         }
 
 
-        [TestCase(102, "FALHA")]
+
         [TestCase(50, "SUCESSO")]
         [TestCase(100.5, "SUCESSO")]
+        [TestCase(102, "FALHA")]
         [TestCase(4, "FALHA")]
         [TestCase(1, "FALHA")]
         public void Saque_QuandoChamado_GeraTransacaoResultadoDaTentativa(decimal valorTeste, string resultadoEsperado)
