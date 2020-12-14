@@ -1,5 +1,7 @@
 ﻿using BankAccountAPI.Data;
+using BankAccountAPI.Models;
 using BankAccountAPI.Services;
+using System.Collections.Generic;
 
 namespace BankAccountAPI.Helpers
 {
@@ -13,24 +15,28 @@ namespace BankAccountAPI.Helpers
             bancoDbContext = _bancoDbContext;
         }
 
-        public void TransacaoDeposito(Conta conta, decimal quantidade)
+        public Transacao TransacaoDeposito(Conta conta, decimal quantidade)
         {
             var deposito = new Deposito(conta, quantidade);
 
             bancoDbContext.Transacoes.Add(deposito.Transacao);
             bancoDbContext.SaveChanges(true);
+
+            return deposito.Transacao;
         }
 
-        public void TransacaoSaque(Conta conta, decimal quantidade)
+        public Transacao TransacaoSaque(Conta conta, decimal quantidade)
         {
             var saque = new Saque(conta, quantidade);
 
             bancoDbContext.Transacoes.Add(saque.Transacao);
             bancoDbContext.SaveChanges(true);
+
+            return saque.Transacao;
         }
 
 
-        public void TransacaoTransferencia(Conta conta, Conta contaDestino, decimal quantidade)
+        public Transacao TransacaoTransferencia(Conta conta, Conta contaDestino, decimal quantidade)
         {
             var transferencia = new Transferencia(conta, contaDestino, quantidade);
 
@@ -40,6 +46,8 @@ namespace BankAccountAPI.Helpers
                 bancoDbContext.Transacoes.Add(transferencia.TransacaoDestino);
 
             bancoDbContext.SaveChanges(true);
+
+            return transferencia.Transacao;
         }
     }
 }

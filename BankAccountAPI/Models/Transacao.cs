@@ -18,7 +18,7 @@ namespace BankAccountAPI.Models
         public int ContaId { get; private set; }
         public int? ContaRelacionadaId { get; private set; }
 
-        protected internal void SetTransacao(string tipoMovimentacao, string resultado, decimal valorTentativa, decimal valorPagoTotal,
+        internal void SetTransacao(string tipoMovimentacao, string resultado, decimal valorTentativa, decimal valorPagoTotal,
                                decimal taxas, decimal valorFinal, decimal saldoAnterior,
                                decimal saldoAtual, int contaId, int? contaRelacionadaId)
         {

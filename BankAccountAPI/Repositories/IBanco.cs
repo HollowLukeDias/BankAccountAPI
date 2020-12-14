@@ -1,9 +1,12 @@
-﻿namespace BankAccountAPI.Helpers
+﻿using BankAccountAPI.Models;
+using System.Collections.Generic;
+
+namespace BankAccountAPI.Helpers
 {
     public interface IBanco
     {
-        void TransacaoDeposito(Conta conta, decimal quantidade);
-        void TransacaoSaque(Conta conta, decimal quantidade);
-        void TransacaoTransferencia(Conta conta, Conta contaDestino, decimal quantidade);
+        Transacao TransacaoDeposito(Conta conta, decimal quantidade);
+        Transacao TransacaoSaque(Conta conta, decimal quantidade);
+        Transacao TransacaoTransferencia(Conta conta, Conta contaDestino, decimal quantidade);
     }
 }

@@ -21,18 +21,19 @@ namespace BankAccountAPI.Controllers
 
 
         [HttpPost("{id}/transferencia/{idDestino}")]
-        public IActionResult Transferencia(int id, int idDestino, decimal quantidade)
+        public IActionResult Transferencia(int id, int idDestino, decimal valor)
         {
-            if (quantidade <= 0) return BadRequest($"O valor {quantidade:F2} não é aceito");
+            if (valor <= 0) return BadRequest($"O valor {valor:F2} é inválido.");
 
             var conta = _contaRepository.Get(id);
-            if (conta == null) return NotFound($"Não foi encontrado uma conta de Origem de ID: {id}");
+            if (conta == null) return NotFound($"Não existe conta com o ID: {id} registrada no Banco de Dados.");
 
             var contaDestino = _contaRepository.Get(idDestino);
-            if (contaDestino == null) return NotFound($"Não foi encontrado uma conta de Destino de ID: {idDestino}");
+            if (contaDestino == null) return NotFound($"Não existe conta com o ID: {idDestino} registrada no Banco de Dados\n" +
+                                                      $"Revise o ID da conta que deseja transferir para.");
 
-            _bancoDb.TransacaoTransferencia(conta, contaDestino, quantidade);
-            return Ok($"Tentativa de transferência efetuada, por favor verifique o Extrato");
+            var transacao = _bancoDb.TransacaoTransferencia(conta, contaDestino, valor);
+            return Ok(transacao);
         }
     }
 }

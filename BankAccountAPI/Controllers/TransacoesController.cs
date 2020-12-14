@@ -17,9 +17,10 @@ namespace BankAccountAPI.Controllers
         [HttpGet("{id}/transacoes")]
         public IActionResult Get(int id, int? page)
         {
+            //TODO: Check if page is less than 0
             var checkPage = page ?? 1;
             var transacoes = _transacoes.GetTransacoes(id, checkPage);
-            if (transacoes == null) return NotFound("Não existem Transações");
+            if (transacoes == null) return Ok($"Não existem Transações registradas no Banco de Dados feitas na conta de ID: {id}");
             return Ok(transacoes);
         }
 
@@ -27,7 +28,7 @@ namespace BankAccountAPI.Controllers
         public IActionResult Get(int idConta, int idTransacao)
         {
             var transacao = _transacoes.GetTransacao(idConta, idTransacao);
-            if (transacao == null) return NotFound($"Não econtramos a Transação de ID: {idTransacao} na conta de ID: {idConta}");
+            if (transacao == null) return Ok($"Não econtramos a Transação de ID: {idTransacao} na conta de ID: {idConta}");
             return Ok(transacao);
         }
     }

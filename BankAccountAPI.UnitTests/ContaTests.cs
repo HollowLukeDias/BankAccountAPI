@@ -1,10 +1,7 @@
-﻿using BankAccountAPI.Helpers;
-using BankAccountAPI.Repositories;
+﻿using BankAccountAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BankAccountAPI.UnitTests
 {
@@ -40,8 +37,8 @@ namespace BankAccountAPI.UnitTests
 
             _dbContext.Verify(x => x.Set<Conta>());
             _dbSet.Verify(x => x.Add(It.Is<Conta>(y => y == _contaLuke)));
-
         }
+
 
         [Test]
         public void Remove_ObjetoContaPassado_FuncaoCorreta()
@@ -54,6 +51,7 @@ namespace BankAccountAPI.UnitTests
             _dbContext.Verify(x => x.Set<Conta>());
             _dbSet.Verify(x => x.Remove(It.Is<Conta>(y => y == _contaLuke)));
         }
+
 
         [Test]
         public void Get_ObjetoContaPassado_FuncaoCorreta()

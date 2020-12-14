@@ -23,7 +23,7 @@ namespace BankAccountAPI.Controllers
         public IActionResult Get()
         {
             var contas = _contaRepository.GetAll();
-            if (contas == null) return BadRequest("Não existem contas cadastradas");
+            if (contas == null) return NotFound("Não existem contas cadastradas nesse Banco de Dados.");
             return Ok(contas);
         }
 
@@ -32,7 +32,7 @@ namespace BankAccountAPI.Controllers
         public IActionResult Get(int id)
         {
             var conta = _contaRepository.Get(id);
-            if (conta == null) return BadRequest($"Não existe conta com esse ID: {id}");
+            if (conta == null) return NotFound($"Não existe conta com o ID: {id} registrada no Banco de Dados.");
             return Ok(conta);
         }
 
@@ -58,11 +58,11 @@ namespace BankAccountAPI.Controllers
             try
             {
                 _contaRepository.Update(conta);
-                return Ok($"Conta de ID: {id} atualizada");
+                return Ok($"A Conta de ID: {id} foi atualizada");
             }
             catch
             {
-                return NotFound($"Não existe conta com o ID: {id}");
+                return NotFound($"NNão existe conta com o ID: {id} registrada no Banco de Dados.");
             }
         }
 
@@ -74,11 +74,11 @@ namespace BankAccountAPI.Controllers
             {
                 var conta = _contaRepository.Get(id);
                 _contaRepository.Remove(conta);
-                return Ok($"Conta com ID: {id} deletada");
+                return Ok($"A Conta com ID: {id} foi deletada");
             }
             catch
             {
-                return NotFound($"Não foi encontrada uma conta com o ID: {id}");
+                return NotFound($"Não existe conta com o ID: {id} registrada no Banco de Dados.");
             }
         }
 

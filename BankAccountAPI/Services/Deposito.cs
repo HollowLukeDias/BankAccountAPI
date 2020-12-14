@@ -7,7 +7,7 @@ namespace BankAccountAPI.Services
     {
         public Deposito(Conta conta, decimal valorTentativa)
         {
-            TentarDepositar(conta, valorTentativa);
+            Depositar(conta, valorTentativa);
             GerarTransacao(conta.Id, valorTentativa);
         }
 
@@ -17,10 +17,10 @@ namespace BankAccountAPI.Services
         public decimal ValorTaxa { get; set; }
         public Transacao Transacao { get; set; }
 
-        private void TentarDepositar(Conta conta, decimal valor)
+        private void Depositar(Conta conta, decimal valor)
         {
             SaldoAnterior = conta.Saldo;
-            ValorTaxa = (decimal)Math.Round(valor * Conta.TaxaPorcentagemDeposito, 2);
+            ValorTaxa = Math.Round(valor * Conta.TaxaPorcentagemDeposito, 2);
             var valorTaxado = valor - ValorTaxa;
 
             conta.AlterarSaldo(valorTaxado);

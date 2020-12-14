@@ -37,6 +37,7 @@ namespace BankAccountAPI.Helpers
                                     where transacao.Id == idTransacao
                                     && transacao.ContaId == idConta
                                     select transacao).First();
+
             return queriedTransacao;
         }
     }

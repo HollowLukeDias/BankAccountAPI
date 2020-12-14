@@ -4,9 +4,9 @@ namespace BankAccountAPI
 {
     public class Conta
     {
-        protected internal static readonly decimal TaxaPorcentagemDeposito = 1 / 100M;
-        protected internal static readonly decimal TaxaValorSaque = 4.00M;
-        protected internal static readonly decimal TaxaValorTransferencia = 1.00M;
+        internal const decimal TaxaPorcentagemDeposito = 1 / 100M;
+        internal const decimal TaxaValorSaque = 4.00M;
+        internal const decimal TaxaValorTransferencia = 1.00M;
 
         [Key]
         public int Id { get; set; }
